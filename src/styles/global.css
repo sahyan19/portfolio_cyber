@@ -399,19 +399,23 @@ a:hover { color: var(--color-text); }
   min-width: 0;
   background: transparent;
   border: none;
-  outline: none;
+  outline: none !important;
+  box-shadow: none !important;
   color: var(--color-text);
   font-family: inherit;
   font-size: inherit;
   padding: 0;
   caret-color: var(--color-accent);
 }
-.terminal-input::selection { background: var(--color-accent-fade); color: var(--color-text); }
-.terminal-input-line .cursor-blink {
-  display: none;
+.terminal-input:focus,
+.terminal-input:focus-visible,
+.terminal-input:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
-/* Show cursor only when input is empty AND focused-or-not — simple visual */
-.terminal-input-line:focus-within .cursor-blink { display: none; }
+.terminal-input::selection { background: var(--color-accent-fade); color: var(--color-text); }
+.terminal-input-line .cursor-blink { display: none; }
 .terminal-line { display: block; white-space: pre-wrap; }
 .terminal-prompt { color: var(--ansi-user); }
 .terminal-prompt::after { content: ':~$ '; color: var(--ansi-prompt); }
