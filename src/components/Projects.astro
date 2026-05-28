@@ -9,12 +9,12 @@ const { t } = Astro.props;
 ---
 <section id="projects">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-eyebrow">{t.projects.eyebrow}</span>
       <h2 class="section-title">{t.projects.title}</h2>
       <p class="section-lead">{t.projects.lead}</p>
     </div>
-    <div class="projects-grid">
+    <div class="projects-grid reveal-stagger">
       {t.projects.items.map((p) => (
         <article class="project-card">
           <div class="project-meta">

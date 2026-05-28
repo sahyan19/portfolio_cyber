@@ -16,12 +16,12 @@ const categories = [
 ---
 <section id="skills">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-eyebrow">{t.skills.eyebrow}</span>
       <h2 class="section-title">{t.skills.title}</h2>
       <p class="section-lead">{t.skills.lead}</p>
     </div>
-    <div class="skills-grid">
+    <div class="skills-grid reveal-stagger">
       {categories.map((cat) => (
         <div class="skill-card">
           <h3>{cat.title}</h3>

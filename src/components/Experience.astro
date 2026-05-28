@@ -9,12 +9,12 @@ const { t } = Astro.props;
 ---
 <section id="experience">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-eyebrow">{t.experience.eyebrow}</span>
       <h2 class="section-title">{t.experience.title}</h2>
       <p class="section-lead">{t.experience.lead}</p>
     </div>
-    <ol class="timeline">
+    <ol class="timeline reveal-stagger">
       {t.experience.items.map((item) => (
         <li class="timeline-item">
           <div class="timeline-dot" aria-hidden="true">

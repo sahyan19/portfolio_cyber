@@ -9,11 +9,11 @@ const { t } = Astro.props;
 ---
 <section id="about">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header reveal">
       <span class="section-eyebrow">{t.about.eyebrow}</span>
       <h2 class="section-title">{t.about.title}</h2>
     </div>
-    <div class="about-grid">
+    <div class="about-grid reveal">
       <div class="photo-wrap">
         <img src="/assets/photo.jpeg" alt="Tahirihasina Rakotomanga" loading="lazy" width="280" height="373" />
       </div>
@@ -49,12 +49,15 @@ const { t } = Astro.props;
           <div class="certs-name">{t.about.certsName}</div>
           <div class="certs-meta">{t.about.certsDate}</div>
           <div class="certs-modules">
-            {t.about.certsModules.map((m) => (
-              <div class="certs-module">
-                <span class="label">{m.label}</span>
-                <span class="score">{m.score}</span>
-              </div>
-            ))}
+            {t.about.certsModules.map((m) => {
+              const num = parseInt(m.score, 10);
+              return (
+                <div class="certs-module">
+                  <span class="label">{m.label}</span>
+                  <span class="score counter-value" data-counter={String(num)} data-counter-suffix="%">{m.score}</span>
+                </div>
+              );
+            })}
           </div>
           <a href="/Tahirihasina_Rakotomanga_ANSSI.pdf" download class="certs-download">
             {t.about.certsDownload}

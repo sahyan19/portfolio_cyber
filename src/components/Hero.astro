@@ -11,7 +11,7 @@ const { t } = Astro.props;
 <section class="hero" id="hero">
   <div class="container">
     <div class="hero-grid">
-      <div>
+      <div class="hero-enter">
         <div class="badge">{t.hero.badge}</div>
         <h1>
           {t.hero.titleLine1Before}<span class="accent">{t.hero.titleLine1Accent}</span><br />
@@ -28,7 +28,9 @@ const { t } = Astro.props;
           <a href="#projects" class="btn btn-ghost">{t.hero.ctaSecondary}</a>
         </div>
       </div>
-      <Terminal t={t} />
+      <div class="hero-enter-terminal">
+        <Terminal t={t} />
+      </div>
     </div>
   </div>
 </section>
