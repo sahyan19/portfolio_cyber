@@ -1,0 +1,35 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+
+const categories = [
+  { title: t.skills.catDevOps, tags: ['Docker', 'Kubernetes', 'CI/CD', 'GitHub Actions', 'Ansible', 'AWS', 'OVH', 'Contabo', 'LXC'] },
+  { title: t.skills.catCyber, tags: ['Nmap', 'Metasploit', 'BurpSuite', 'Hydra', 'iptables', 'pfSense', 'Wazuh (SIEM)', 'SOC'] },
+  { title: t.skills.catSystems, tags: ['Linux', 'Proxmox', 'VMware', 'Hyper-V', 'TCP/IP', 'DNS', 'VLAN', 'SSH'] },
+  { title: t.skills.catDev, tags: ['Python', 'Django', 'Flask', 'PHP', 'JavaScript', 'PostgreSQL', 'MySQL', 'Bash'] },
+];
+---
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">{t.skills.eyebrow}</span>
+      <h2 class="section-title">{t.skills.title}</h2>
+      <p class="section-lead">{t.skills.lead}</p>
+    </div>
+    <div class="skills-grid">
+      {categories.map((cat) => (
+        <div class="skill-card">
+          <h3>{cat.title}</h3>
+          <div class="skill-tags">
+            {cat.tags.map((tag) => <span class="tag">{tag}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

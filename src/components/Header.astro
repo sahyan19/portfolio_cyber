@@ -1,0 +1,86 @@
+---
+import type { Locale, Translation } from '../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  t: Translation;
+}
+
+const { lang, t } = Astro.props;
+const cvHref = '/CV_Rakotomanga_Tahirihasina.pdf';
+---
+<header class="header">
+  <div class="header-inner">
+    <a href={lang === 'en' ? '/en/' : '/'} class="logo">tahirihasina<span>.dev</span></a>
+
+    <nav class="nav nav-desktop">
+      <a href="#about" class="nav-link">{t.nav.about}</a>
+      <a href="#experience" class="nav-link">{t.nav.experience}</a>
+      <a href="#skills" class="nav-link">{t.nav.skills}</a>
+      <a href="#projects" class="nav-link">{t.nav.projects}</a>
+      <a href="#services" class="nav-link">{t.nav.services}</a>
+      <a href="#contact" class="nav-link">{t.nav.contact}</a>
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <a href="/" class={lang === 'fr' ? 'active' : ''} hreflang="fr">FR</a>
+        <a href="/en/" class={lang === 'en' ? 'active' : ''} hreflang="en">EN</a>
+      </div>
+      <a href={cvHref} download class="btn-cv" aria-label={t.nav.cv}>{t.nav.cv}</a>
+    </nav>
+
+    <div class="nav-mobile-actions">
+      <a href={cvHref} download class="btn-cv btn-cv-compact" aria-label={t.nav.cv}>CV</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav class="mobile-menu-inner">
+      <a href="#about" class="mobile-menu-link" data-close>{t.nav.about}</a>
+      <a href="#experience" class="mobile-menu-link" data-close>{t.nav.experience}</a>
+      <a href="#skills" class="mobile-menu-link" data-close>{t.nav.skills}</a>
+      <a href="#projects" class="mobile-menu-link" data-close>{t.nav.projects}</a>
+      <a href="#services" class="mobile-menu-link" data-close>{t.nav.services}</a>
+      <a href="#contact" class="mobile-menu-link" data-close>{t.nav.contact}</a>
+      <div class="lang-switch mobile-lang-switch" role="group" aria-label="Language switch">
+        <a href="/" class={lang === 'fr' ? 'active' : ''} hreflang="fr">FR</a>
+        <a href="/en/" class={lang === 'en' ? 'active' : ''} hreflang="en">EN</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (toggle && menu) {
+    const closeMenu = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      toggle.classList.remove('is-open');
+      menu.classList.remove('is-open');
+      document.body.style.overflow = '';
+    };
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        toggle.setAttribute('aria-expanded', 'true');
+        menu.setAttribute('aria-hidden', 'false');
+        toggle.classList.add('is-open');
+        menu.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+    menu.querySelectorAll('[data-close]').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+</script>

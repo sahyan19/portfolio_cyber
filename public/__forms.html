@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Forms (Netlify detection)</title></head>
+<body>
+  <!--
+    This file exists ONLY so Netlify's build bot can detect the form definition.
+    Astro renders forms dynamically — this static copy guarantees detection.
+    Do not link to this page.
+  -->
+  <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks">
+    <input type="hidden" name="form-name" value="contact" />
+    <input type="text" name="bot-field" />
+    <select name="type">
+      <option>Opportunité CDI · Système / DevOps / Sécurité</option>
+      <option>Mission freelance · Déploiement &amp; CI/CD</option>
+      <option>Mission freelance · Audit &amp; hardening infra</option>
+      <option>Mission freelance · Pentest &amp; SIEM</option>
+      <option>Autre / échange</option>
+    </select>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="message"></textarea>
+  </form>
+</body>
+</html>

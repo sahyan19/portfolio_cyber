@@ -1,0 +1,20 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">{t.services.eyebrow}</span>
+      <h2 class="section-title">{t.services.title}</h2>
+      <p class="section-lead">{t.services.lead}</p>
+    </div>
+
+    <div class="services-intro" set:html={t.services.intro} />
+  </div>
+</section>

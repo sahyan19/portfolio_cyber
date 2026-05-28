@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { translations } from '../i18n/translations';
+
+const lang = 'fr';
+const t = translations.fr;
+---
+<Layout lang={lang} t={t}>
+  <main class="container" style="min-height: 80vh; display: grid; place-items: center; padding-top: 96px;">
+    <div style="font-family: var(--font-mono);">
+      <pre style="color: var(--color-accent); font-size: 14px; line-height: 1.4; margin-bottom: 24px;">
+{`> 404 NOT FOUND
+
+This path doesn't exist in my filesystem.
+
+Try one of these:
+  → /        (home)
+  → /en/     (english)
+  → #contact
+`}
+      </pre>
+      <a href="/" class="btn btn-primary">← cd /</a>
+    </div>
+  </main>
+</Layout>

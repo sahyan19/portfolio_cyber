@@ -1,0 +1,36 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">{t.projects.eyebrow}</span>
+      <h2 class="section-title">{t.projects.title}</h2>
+      <p class="section-lead">{t.projects.lead}</p>
+    </div>
+    <div class="projects-grid">
+      {t.projects.items.map((p) => (
+        <article class="project-card">
+          <div class="project-meta">
+            <span>{p.meta}</span>
+            <span class="project-status">{p.status}</span>
+          </div>
+          <h3>{p.title}</h3>
+          <p>{p.description}</p>
+          <div class="project-stack">
+            {p.stack.map((s) => <span class="tag">{s}</span>)}
+          </div>
+          <div class="project-links">
+            {p.links.map((l) => <a href={l.href} class="project-link" target="_blank" rel="noopener">{l.label}</a>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

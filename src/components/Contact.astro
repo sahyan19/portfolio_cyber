@@ -1,0 +1,87 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-header section-header-center">
+      <span class="section-eyebrow">{t.contact.eyebrow}</span>
+      <h2 class="section-title">{t.contact.title}</h2>
+      <p class="section-lead">{t.contact.lead}</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-side">
+        <div class="contact-channels">
+          <a href="mailto:tahirihasinarakotomanga@gmail.com" class="contact-channel">
+            <div class="contact-channel-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+            </div>
+            <div class="contact-channel-info">
+              <span class="label">{t.contact.channels.emailLabel}</span>
+              <span class="value">tahirihasinarakotomanga@gmail.com</span>
+            </div>
+            <span class="contact-channel-arrow">→</span>
+          </a>
+          <a href="https://www.linkedin.com/in/tahirihasina-rakotomanga" target="_blank" rel="noopener" class="contact-channel">
+            <div class="contact-channel-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.3 6.5a1.78 1.78 0 0 1-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            </div>
+            <div class="contact-channel-info">
+              <span class="label">{t.contact.channels.linkedinLabel}</span>
+              <span class="value">linkedin.com/in/tahirihasina-rakotomanga</span>
+            </div>
+            <span class="contact-channel-arrow">→</span>
+          </a>
+          <a href="https://github.com/sahyan19" target="_blank" rel="noopener" class="contact-channel">
+            <div class="contact-channel-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.51 11.51 0 0 0 7.86 10.92c.58.11.79-.25.79-.55v-2c-3.2.69-3.88-1.36-3.88-1.36a3.05 3.05 0 0 0-1.28-1.68c-1-.71.08-.7.08-.7a2.42 2.42 0 0 1 1.77 1.19 2.47 2.47 0 0 0 3.37.96 2.45 2.45 0 0 1 .74-1.54c-2.56-.29-5.25-1.28-5.25-5.7a4.46 4.46 0 0 1 1.19-3.1 4.16 4.16 0 0 1 .11-3.05s.97-.31 3.18 1.18a10.93 10.93 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18a4.16 4.16 0 0 1 .12 3.05 4.45 4.45 0 0 1 1.18 3.1c0 4.43-2.69 5.4-5.26 5.69a2.75 2.75 0 0 1 .79 2.13v3.16c0 .31.21.66.79.55A11.51 11.51 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
+            </div>
+            <div class="contact-channel-info">
+              <span class="label">{t.contact.channels.githubLabel}</span>
+              <span class="value">github.com/sahyan19</span>
+            </div>
+            <span class="contact-channel-arrow">→</span>
+          </a>
+        </div>
+
+        <div class="contact-availability">
+          <span class="contact-availability-dot"></span>
+          <div>
+            <div class="contact-availability-status">Disponible · 2026</div>
+            <div class="contact-availability-meta">Antananarivo, Madagascar · Remote-friendly</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks">
+        <input type="hidden" name="form-name" value="contact" />
+        <p style="display:none"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <div class="form-row">
+          <label for="type">{t.contact.form.typeLabel}</label>
+          <select id="type" name="type">
+            {t.contact.form.typeOptions.map((opt) => <option>{opt}</option>)}
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="name">{t.contact.form.nameLabel}</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-row">
+          <label for="email">{t.contact.form.emailLabel}</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-row">
+          <label for="message">{t.contact.form.messageLabel}</label>
+          <textarea id="message" name="message" required placeholder={t.contact.form.messagePlaceholder}></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">{t.contact.form.submit}</button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<footer class="footer">
+  <div class="container">
+    <p>{t.footer.rights} — <span class="accent">tahirihasina.dev</span></p>
+  </div>
+</footer>

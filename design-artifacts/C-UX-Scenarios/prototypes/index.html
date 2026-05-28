@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tahirihasina Rakotomanga · Ingénieur Système & Sécurité · DevOps</title>
+<meta name="description" content="Ingénieur Système et Sécurité, spécialisé DevOps : CI/CD, automatisation, déploiement d'infrastructures cloud. Passionné de cybersécurité et SOC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   DESIGN TOKENS — SOC Cyan direction
+   ========================================================== */
+:root {
+  /* Colors */
+  --color-base: #0A0E14;
+  --color-surface: #11161D;
+  --color-surface-2: #1A1F26;
+  --color-border: #21262D;
+  --color-border-strong: #30363D;
+
+  --color-text: #E6EDF3;
+  --color-text-muted: #7D8590;
+  --color-text-subtle: #484F58;
+
+  --color-accent: #00D4FF;
+  --color-accent-dim: #0891B2;
+  --color-accent-fade: rgba(0, 212, 255, 0.08);
+  --color-accent-glow: rgba(0, 212, 255, 0.4);
+
+  --color-success: #3FB950;
+  --color-warning: #FFC107;
+  --color-danger: #F85149;
+
+  --ansi-prompt: #00D4FF;
+  --ansi-user: #3FB950;
+  --ansi-section: #FFC107;
+  --ansi-comment: #7D8590;
+
+  /* Typo */
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+  --space-24: 96px; --space-32: 128px;
+
+  /* Radii */
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px;
+
+  /* Shadows / Glow */
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.6);
+  --shadow-glow: 0 0 24px rgba(0, 212, 255, 0.15);
+  --shadow-glow-strong: 0 0 32px rgba(0, 212, 255, 0.35);
+
+  /* Motion */
+  --ease-fast: 120ms;
+  --ease-base: 200ms;
+  --ease-slow: 400ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container-xl: 1280px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--color-base);
+  color: var(--color-text);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Gradient ambient background — subtil glow cyan en haut */
+body::before {
+  content: '';
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.08), transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+a { color: var(--color-accent); text-decoration: none; transition: color var(--ease-fast); }
+a:hover { color: var(--color-text); }
+
+.container {
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================
+   HEADER STICKY
+   ========================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 14, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  max-width: var(--container-xl);
+  margin: 0 auto;
+}
+.logo {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text);
+}
+.logo span { color: var(--color-accent); }
+.nav { display: flex; align-items: center; gap: var(--space-6); }
+.nav-link {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color var(--ease-fast);
+}
+.nav-link:hover { color: var(--color-text); }
+.lang-switch {
+  display: flex;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.lang-switch button {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  padding: 6px 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--ease-fast);
+}
+.lang-switch button.active {
+  background: var(--color-accent-fade);
+  color: var(--color-accent);
+}
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--color-accent);
+  color: var(--color-base);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  box-shadow: var(--shadow-glow);
+  transition: box-shadow var(--ease-base), transform var(--ease-fast);
+}
+.btn-cv:hover { box-shadow: var(--shadow-glow-strong); transform: translateY(-1px); color: var(--color-base); }
+
+/* Hide nav links on mobile, keep brand + CV */
+@media (max-width: 768px) {
+  .nav .nav-link, .nav .lang-switch { display: none; }
+}
+
+/* ==========================================================
+   HERO
+   ========================================================== */
+.hero { padding: var(--space-24) 0 var(--space-16); position: relative; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero-grid { grid-template-columns: 1.1fr 1fr; }
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  background: rgba(63, 185, 80, 0.1);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-success);
+  margin-bottom: var(--space-6);
+}
+.badge::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--color-success);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-success);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 50% { opacity: 0.4; } }
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-6);
+}
+.hero h1 .accent { color: var(--color-accent); }
+.hero h1 .mono { font-family: var(--font-mono); }
+.hero-tagline {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+  max-width: 560px;
+  line-height: 1.6;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--ease-base);
+  border: 1px solid transparent;
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-base);
+  box-shadow: var(--shadow-glow);
+}
+.btn-primary:hover { box-shadow: var(--shadow-glow-strong); transform: translateY(-1px); color: var(--color-base); }
+.btn-ghost {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+.btn-ghost:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+/* ==========================================================
+   TERMINAL
+   ========================================================== */
+.terminal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  position: relative;
+}
+.terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 212, 255, 0.02) 2px,
+    rgba(0, 212, 255, 0.02) 3px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 16px;
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+.terminal-dot.red    { background: #FF5F57; }
+.terminal-dot.yellow { background: #FEBC2E; }
+.terminal-dot.green  { background: #28C840; }
+.terminal-title {
+  margin-left: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+.terminal-body { padding: var(--space-6); min-height: 320px; line-height: 1.8; }
+.terminal-line { display: block; white-space: pre-wrap; }
+.terminal-prompt { color: var(--ansi-user); }
+.terminal-prompt::after { content: ':~$ '; color: var(--ansi-prompt); }
+.terminal-command { color: var(--color-text); }
+.terminal-output { color: var(--color-text); }
+.terminal-section { color: var(--ansi-section); font-weight: 500; }
+.terminal-comment { color: var(--ansi-comment); }
+.terminal-link { color: var(--color-accent); text-decoration: underline; text-decoration-color: rgba(0,212,255,0.3); }
+.cursor-blink {
+  display: inline-block;
+  width: 9px;
+  height: 1em;
+  background: var(--color-accent);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.terminal-hint {
+  padding: 10px 16px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-base);
+  color: var(--color-text-subtle);
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+}
+.terminal-hint kbd {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-strong);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================
+   SECTIONS
+   ========================================================== */
+section { padding: var(--space-24) 0; }
+.section-header { margin-bottom: var(--space-12); max-width: 720px; }
+.section-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.section-eyebrow::before { content: '// '; opacity: 0.6; }
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+.section-lead {
+  font-size: 18px;
+  color: var(--color-text-muted);
+  max-width: 640px;
+}
+
+/* ==========================================================
+   ABOUT
+   ========================================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+@media (min-width: 768px) { .about-grid { grid-template-columns: 280px 1fr; } }
+.photo-wrap {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+  aspect-ratio: 3/4;
+}
+.photo-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%) brightness(0.95) contrast(1.05);
+  transition: filter var(--ease-slow);
+}
+.photo-wrap:hover img { filter: grayscale(0%) brightness(1) contrast(1); }
+.photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0, 212, 255, 0.08));
+  pointer-events: none;
+}
+.about-content p { margin-bottom: var(--space-4); color: var(--color-text); line-height: 1.8; }
+.about-content p:first-child { font-size: 18px; }
+.about-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.about-meta-item .label { color: var(--color-text-muted); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.about-meta-item .value { color: var(--color-text); }
+
+/* ==========================================================
+   SKILLS
+   ========================================================== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+@media (min-width: 768px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .skills-grid { grid-template-columns: repeat(4, 1fr); } }
+.skill-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: border-color var(--ease-base), transform var(--ease-base);
+}
+.skill-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+.skill-card h3 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.02em;
+}
+.skill-card h3::before { content: '> '; opacity: 0.6; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  transition: all var(--ease-fast);
+}
+.tag:hover {
+  background: var(--color-accent-fade);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ==========================================================
+   PROJECTS
+   ========================================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+@media (min-width: 768px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+.project-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: all var(--ease-base);
+  position: relative;
+  overflow: hidden;
+}
+.project-card:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--color-accent), transparent);
+  opacity: 0;
+  transition: opacity var(--ease-base);
+}
+.project-card:hover::before { opacity: 1; }
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.project-status { color: var(--color-success); }
+.project-card h3 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.project-card p {
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+.project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.project-links { display: flex; gap: var(--space-4); margin-top: var(--space-2); }
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-accent);
+}
+.project-link:hover { color: var(--color-text); }
+
+/* ==========================================================
+   SERVICES FREELANCE
+   ========================================================== */
+.services { background: linear-gradient(180deg, transparent, var(--color-accent-fade), transparent); }
+.services-intro {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-12);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-text);
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+@media (min-width: 768px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
+.service-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  text-align: left;
+}
+.service-icon {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-4);
+}
+.service-card h3 { font-size: 18px; margin-bottom: var(--space-3); }
+.service-card p { color: var(--color-text-muted); font-size: 14px; line-height: 1.6; margin-bottom: var(--space-4); }
+.service-duration {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-accent);
+}
+
+.methodology {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+.methodology h3 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.methodology h3::before { content: '// '; opacity: 0.6; }
+.methodology-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  list-style: none;
+}
+@media (min-width: 768px) { .methodology-steps { grid-template-columns: repeat(4, 1fr); } }
+.methodology-step {
+  position: relative;
+  padding-left: var(--space-8);
+}
+.methodology-step::before {
+  content: counter(step, decimal-leading-zero);
+  counter-increment: step;
+  position: absolute;
+  left: 0; top: 0;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent);
+  opacity: 0.5;
+}
+.methodology-steps { counter-reset: step; }
+.methodology-step h4 { font-size: 14px; margin-bottom: 4px; font-family: var(--font-mono); }
+.methodology-step p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+.legal-notice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: center;
+  padding: var(--space-6);
+  background: var(--color-base);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.legal-notice span { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--color-text-muted); }
+.legal-notice .check { color: var(--color-success); }
+
+.services-cta {
+  text-align: center;
+  margin-top: var(--space-12);
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================
+   CONTACT
+   ========================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+}
+@media (min-width: 1024px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+.contact-channels { display: flex; flex-direction: column; gap: var(--space-4); }
+.contact-channel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--ease-base);
+}
+.contact-channel:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-fade);
+}
+.contact-channel-icon {
+  width: 40px; height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--color-accent);
+}
+.contact-channel-info { flex: 1; }
+.contact-channel-info .label { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.contact-channel-info .value { color: var(--color-text); font-family: var(--font-mono); font-size: 14px; }
+
+.form {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+}
+.form-row { margin-bottom: var(--space-4); }
+.form-row label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.form-row input, .form-row textarea, .form-row select {
+  width: 100%;
+  background: var(--color-base);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  transition: border-color var(--ease-fast);
+}
+.form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-fade);
+}
+.form-row textarea { resize: vertical; min-height: 120px; }
+.form button { width: 100%; justify-content: center; }
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-8) 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.footer p { margin-bottom: var(--space-2); }
+.footer .accent { color: var(--color-accent); }
+
+/* ==========================================================
+   FOCUS / a11y
+   ========================================================== */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">tahirihasina<span>.dev</span></a>
+    <nav class="nav">
+      <a href="#about" class="nav-link">À propos</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projets</a>
+      <a href="#services" class="nav-link">Freelance</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <div class="lang-switch">
+        <button class="active">FR</button>
+        <button>EN</button>
+      </div>
+      <a href="#" class="btn-cv">↓ CV</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="badge">Open to opportunities · CDI + Freelance</div>
+        <h1>
+          Ingénieur <span class="accent">Système &amp; Sécurité</span><br>
+          &amp; <span class="mono">DevOps</span>.
+        </h1>
+        <p class="hero-tagline">
+          Spécialisé en CI/CD, automatisation et déploiement d'infrastructures cloud sécurisées.
+          Passionné par la cybersécurité, le pentest et le SOC.
+        </p>
+        <div class="hero-meta">
+          <span>📍 Antananarivo, Madagascar</span>
+          <span>🌐 Remote-friendly</span>
+          <span>🎓 Master 2 MISA</span>
+        </div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Me contacter →</a>
+          <a href="#projects" class="btn btn-ghost">Voir mes projets</a>
+        </div>
+      </div>
+
+      <!-- TERMINAL preview -->
+      <div class="terminal" id="terminal">
+        <div class="terminal-header">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <div class="terminal-title">visitor@tahirihasina:~</div>
+        </div>
+        <div class="terminal-body">
+          <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">whoami</span></span>
+          <span class="terminal-line terminal-output">Tahirihasina RAKOTOMANGA</span>
+          <span class="terminal-line terminal-output">Ingénieur Système &amp; Sécurité · DevOps</span>
+          <span class="terminal-line terminal-comment"># Passionné de cybersécurité &amp; SOC</span>
+          <span class="terminal-line">&nbsp;</span>
+          <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">cat stack.txt | head -4</span></span>
+          <span class="terminal-line"><span class="terminal-section">[DevOps]</span>  Docker · K8s · CI/CD · Ansible</span>
+          <span class="terminal-line"><span class="terminal-section">[Système]</span> Linux · Proxmox · VMware · Hyper-V</span>
+          <span class="terminal-line"><span class="terminal-section">[Sécu]</span>    iptables · pfSense · Wazuh · Burp</span>
+          <span class="terminal-line"><span class="terminal-section">[Cloud]</span>   AWS · OVH · Contabo · LXC</span>
+          <span class="terminal-line">&nbsp;</span>
+          <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">contact</span><span class="cursor-blink"></span></span>
+        </div>
+        <div class="terminal-hint">
+          <span>Type <kbd>help</kbd> to start</span>
+          <span><kbd>Tab</kbd> autocomplete · <kbd>↑↓</kbd> history</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">about</span>
+      <h2 class="section-title">À propos</h2>
+    </div>
+    <div class="about-grid">
+      <div class="photo-wrap">
+        <img src="assets/photo.jpeg" alt="Photo de Tahirihasina Rakotomanga">
+      </div>
+      <div class="about-content">
+        <p>
+          Ingénieur DevOps spécialisé en CI/CD, automatisation et déploiement d'infrastructures cloud.
+          Expérience dans la mise en place de pipelines avec GitHub Actions, la conteneurisation avec
+          Docker et l'automatisation avec Ansible sur des environnements multi-cloud (AWS, OVH, VPS).
+        </p>
+        <p>
+          Axé sur la <strong>fiabilité et la performance</strong>, avec une capacité à automatiser et à
+          <strong style="color: var(--color-accent)">sécuriser les déploiements en environnement de production</strong>.
+          Actuellement Ingénieur Système et Sécurité chez CSS Ankorondrano, en parallèle d'un poste
+          d'Ingénieur IA &amp; Développeur chez Redsmite AI.
+        </p>
+        <p>
+          Passionné par la <strong style="color: var(--color-accent)">cybersécurité</strong> :
+          pentest (Nmap, Metasploit, BurpSuite, Hydra), sécurité réseau (iptables, pfSense),
+          et SIEM avec Wazuh. Ouvert aux opportunités CDI et missions freelance. Bilingue FR/EN, remote-friendly.
+        </p>
+
+        <div class="about-meta">
+          <div class="about-meta-item">
+            <span class="label">Localisation</span>
+            <span class="value">Antananarivo, MG</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="label">Formation</span>
+            <span class="value">Master 2 MISA</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="label">Langues</span>
+            <span class="value">FR · EN · MG</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="label">Disponibilité</span>
+            <span class="value" style="color: var(--color-success)">Open · 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">stack</span>
+      <h2 class="section-title">Stack technique</h2>
+      <p class="section-lead">Les technologies que j'utilise au quotidien, organisées par domaine.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>DevOps &amp; Cloud</h3>
+        <div class="skill-tags">
+          <span class="tag">Docker</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Ansible</span>
+          <span class="tag">AWS</span>
+          <span class="tag">OVH</span>
+          <span class="tag">Contabo</span>
+          <span class="tag">LXC</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Cybersécurité</h3>
+        <div class="skill-tags">
+          <span class="tag">Nmap</span>
+          <span class="tag">Metasploit</span>
+          <span class="tag">BurpSuite</span>
+          <span class="tag">Hydra</span>
+          <span class="tag">iptables</span>
+          <span class="tag">pfSense</span>
+          <span class="tag">Wazuh (SIEM)</span>
+          <span class="tag">SOC</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Systèmes &amp; Réseau</h3>
+        <div class="skill-tags">
+          <span class="tag">Linux</span>
+          <span class="tag">Proxmox</span>
+          <span class="tag">VMware</span>
+          <span class="tag">Hyper-V</span>
+          <span class="tag">TCP/IP</span>
+          <span class="tag">DNS</span>
+          <span class="tag">VLAN</span>
+          <span class="tag">SSH</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Développement</h3>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Django</span>
+          <span class="tag">Flask</span>
+          <span class="tag">PHP</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Bash</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">projects</span>
+      <h2 class="section-title">Projets sélectionnés</h2>
+      <p class="section-lead">Des projets concrets — code, déploiement et documentation publics.</p>
+    </div>
+    <div class="projects-grid">
+      <article class="project-card">
+        <div class="project-meta">
+          <span>DevOps · IaC · Sécurité</span>
+          <span class="project-status">● Production</span>
+        </div>
+        <h3>Déploiement GLPI Dockerisé (CSS)</h3>
+        <p>Mise en production de GLPI via Docker sur Contabo : reverse proxy, persistance volumes, automatisation Ansible (IaC). Services sécurisés sur AWS et OVH (EC2/VPS + Nginx).</p>
+        <div class="project-stack">
+          <span class="tag">Docker</span>
+          <span class="tag">Ansible</span>
+          <span class="tag">Nginx</span>
+          <span class="tag">AWS</span>
+          <span class="tag">OVH</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">→ GitHub</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-meta">
+          <span>Cybersécurité · Visualisation</span>
+          <span class="project-status">● Projet personnel</span>
+        </div>
+        <h3>Visualisation des cyber incidents</h3>
+        <p>Outil de visualisation des incidents de cybersécurité : ingestion, agrégation et restitution graphique. Stack Flask + PostgreSQL, conteneurisé Docker, versionné Git.</p>
+        <div class="project-stack">
+          <span class="tag">Flask</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Git</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">→ GitHub</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-meta">
+          <span>DevOps · CI/CD</span>
+          <span class="project-status">● Production</span>
+        </div>
+        <h3>Pipeline CI/CD Faculté des Sciences</h3>
+        <p>Mise en place complète d'un pipeline GitHub Actions, conteneurisation Docker et automatisation des mises en production sur l'environnement de la Faculté.</p>
+        <div class="project-stack">
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Linux</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">→ GitHub</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-meta">
+          <span>Backend · Sysadmin</span>
+          <span class="project-status">● Live</span>
+        </div>
+        <h3>Vote en ligne FMSA</h3>
+        <p>Administration et mise en production d'une application de vote (NestJS / Next.js) sur Linux : reverse proxy Apache2, WebSocket, gestion PostgreSQL et services applicatifs.</p>
+        <div class="project-stack">
+          <span class="tag">NestJS</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Apache2</span>
+          <span class="tag">PostgreSQL</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">→ GitHub</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-meta">
+          <span>Backend · API REST</span>
+          <span class="project-status">● Déployé</span>
+        </div>
+        <h3>API Django REST + Render</h3>
+        <p>Développement et déploiement du backend d'une API de groupe : Django REST Framework, PostgreSQL, hébergement Render (Cloud). Tests et documentation associés.</p>
+        <div class="project-stack">
+          <span class="tag">Django REST</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Render</span>
+          <span class="tag">Python</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">→ GitHub</a>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="project-meta">
+          <span>Réseau · Sécurité</span>
+          <span class="project-status">● Production</span>
+        </div>
+        <h3>Administration réseau MISA</h3>
+        <p>Administration et sécurisation de l'infrastructure réseau de la MISA : installation, mises à jour, durcissement, sauvegardes et gestion du serveur principal.</p>
+        <div class="project-stack">
+          <span class="tag">Linux</span>
+          <span class="tag">iptables</span>
+          <span class="tag">Backup</span>
+          <span class="tag">Sécu réseau</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link">→ Détails</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES FREELANCE -->
+<section id="services" class="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">freelance</span>
+      <h2 class="section-title">Missions freelance</h2>
+      <p class="section-lead">Audit sécurité, pentest, mise en place SOC. Cadre clair, NDA systématique, rapport livrable.</p>
+    </div>
+
+    <div class="services-intro">
+      <span style="color: var(--color-accent)">$</span> Je propose mes services en freelance pour PME et scale-up
+      qui souhaitent <strong>déployer, automatiser ou sécuriser</strong> leur infrastructure — en France, en Europe, ou à Madagascar.
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">[ deploy ]</div>
+        <h3>Déploiement &amp; CI/CD</h3>
+        <p>Mise en place pipelines GitHub Actions, conteneurisation Docker, automatisation Ansible. Déploiement applicatif sécurisé sur AWS, OVH ou VPS.</p>
+        <div class="service-duration">⏱ 3-10 jours · à partir d'un brief</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">[ hardening ]</div>
+        <h3>Audit &amp; hardening infra</h3>
+        <p>Audit configuration serveur, durcissement Linux/pfSense, sécurité réseau (iptables, reverse proxy). Rapport et plan d'action priorisé.</p>
+        <div class="service-duration">⏱ 2-7 jours · selon périmètre</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">[ pentest ]</div>
+        <h3>Pentest &amp; SIEM</h3>
+        <p>Test d'intrusion réseau et applicatif (Nmap, Metasploit, BurpSuite). Déploiement Wazuh pour monitoring et alerting. Rapport détaillé.</p>
+        <div class="service-duration">⏱ 5-15 jours · selon scope</div>
+      </div>
+    </div>
+
+    <div class="methodology">
+      <h3>methodology</h3>
+      <ol class="methodology-steps">
+        <li class="methodology-step">
+          <h4>Cadrage</h4>
+          <p>Appel découverte 20 min + scope écrit + NDA signé.</p>
+        </li>
+        <li class="methodology-step">
+          <h4>Recon &amp; analyse</h4>
+          <p>Cartographie, énumération, identification des surfaces d'attaque.</p>
+        </li>
+        <li class="methodology-step">
+          <h4>Exécution</h4>
+          <p>Tests outillés et manuels avec journal horodaté.</p>
+        </li>
+        <li class="methodology-step">
+          <h4>Livrable</h4>
+          <p>Rapport exec + technique + recommandations priorisées.</p>
+        </li>
+      </ol>
+    </div>
+
+    <div class="legal-notice">
+      <span><span class="check">✓</span> Pentest autorisé uniquement</span>
+      <span><span class="check">✓</span> NDA systématique</span>
+      <span><span class="check">✓</span> Rapport livrable</span>
+      <span><span class="check">✓</span> Discrétion absolue</span>
+    </div>
+
+    <div class="services-cta">
+      <a href="#contact" class="btn btn-primary">Réserver un appel (20 min · gratuit)</a>
+      <a href="#contact" class="btn btn-ghost">Demander un devis</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">contact</span>
+      <h2 class="section-title">Travaillons ensemble</h2>
+      <p class="section-lead">Une opportunité CDI, une mission freelance, ou juste envie d'échanger ? Tous les canaux sont ouverts.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-channels">
+        <a href="mailto:tahirihasinarakotomanga@gmail.com" class="contact-channel">
+          <div class="contact-channel-icon">@</div>
+          <div class="contact-channel-info">
+            <div class="label">Email</div>
+            <div class="value">tahirihasinarakotomanga@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/tahirihasina-rakotomanga" target="_blank" rel="noopener" class="contact-channel">
+          <div class="contact-channel-icon">in</div>
+          <div class="contact-channel-info">
+            <div class="label">LinkedIn</div>
+            <div class="value">linkedin.com/in/tahirihasina-rakotomanga</div>
+          </div>
+        </a>
+        <a href="#" class="contact-channel">
+          <div class="contact-channel-icon">{ }</div>
+          <div class="contact-channel-info">
+            <div class="label">GitHub</div>
+            <div class="value">github.com/[à compléter]</div>
+          </div>
+        </a>
+        <a href="#" class="contact-channel">
+          <div class="contact-channel-icon">📅</div>
+          <div class="contact-channel-info">
+            <div class="label">Calendly</div>
+            <div class="value">Appel découverte · 20 min</div>
+          </div>
+        </a>
+      </div>
+
+      <form class="form" name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact">
+        <div class="form-row">
+          <label for="type">Type de demande</label>
+          <select id="type" name="type">
+            <option>Opportunité CDI · Système / DevOps / Sécurité</option>
+            <option>Mission freelance · Déploiement &amp; CI/CD</option>
+            <option>Mission freelance · Audit &amp; hardening infra</option>
+            <option>Mission freelance · Pentest &amp; SIEM</option>
+            <option>Autre / échange</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="name">Nom</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Contexte, périmètre, délai souhaité..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 Tahirihasina Rakotomanga — <span class="accent">tahirihasina.dev</span></p>
+    <p>Built with care · Deployed on Netlify · Source on GitHub</p>
+  </div>
+</footer>
+
+<script>
+// Simple language switch demo (UI only — real i18n in Astro build)
+document.querySelectorAll('.lang-switch button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Smooth scroll for anchor links + close after click
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id.length > 1) {
+      const el = document.querySelector(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>

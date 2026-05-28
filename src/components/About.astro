@@ -1,0 +1,66 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">{t.about.eyebrow}</span>
+      <h2 class="section-title">{t.about.title}</h2>
+    </div>
+    <div class="about-grid">
+      <div class="photo-wrap">
+        <img src="/assets/photo.jpeg" alt="Tahirihasina Rakotomanga" loading="lazy" width="280" height="373" />
+      </div>
+      <div class="about-content">
+        <p set:html={t.about.p1} />
+        <p set:html={t.about.p2} />
+        <p set:html={t.about.p3} />
+
+        <div class="about-meta">
+          <div class="about-meta-item">
+            <span class="label">{t.about.metaLocation}</span>
+            <span class="value">Antananarivo, MG</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="label">{t.about.metaFormation}</span>
+            <span class="value">{t.about.metaFormationValue}</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="label">{t.about.metaLanguages}</span>
+            <span class="value">{t.about.metaLanguagesValue}</span>
+          </div>
+          <div class="about-meta-item">
+            <span class="label">{t.about.metaAvailability}</span>
+            <span class="value" style="color: var(--color-success)">{t.about.metaAvailabilityValue}</span>
+          </div>
+        </div>
+
+        <div class="certs">
+          <div class="certs-header">
+            <span class="certs-title">{t.about.certsTitle}</span>
+            <span class="certs-issuer">🇫🇷 {t.about.certsIssuer}</span>
+          </div>
+          <div class="certs-name">{t.about.certsName}</div>
+          <div class="certs-meta">{t.about.certsDate}</div>
+          <div class="certs-modules">
+            {t.about.certsModules.map((m) => (
+              <div class="certs-module">
+                <span class="label">{m.label}</span>
+                <span class="score">{m.score}</span>
+              </div>
+            ))}
+          </div>
+          <a href="/Tahirihasina_Rakotomanga_ANSSI.pdf" download class="certs-download">
+            {t.about.certsDownload}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">{t.experience.eyebrow}</span>
+      <h2 class="section-title">{t.experience.title}</h2>
+      <p class="section-lead">{t.experience.lead}</p>
+    </div>
+    <ol class="timeline">
+      {t.experience.items.map((item) => (
+        <li class="timeline-item">
+          <div class="timeline-dot" aria-hidden="true">
+            {item.current && <span class="timeline-pulse"></span>}
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-period">
+              {item.period}
+              {item.current && <span class="timeline-badge">{t.experience.badgeCurrent}</span>}
+            </div>
+            <h3 class="timeline-role">{item.role}</h3>
+            <div class="timeline-company">{item.company}</div>
+            <ul class="timeline-highlights">
+              {item.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+            <div class="timeline-tags">
+              {item.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

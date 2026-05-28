@@ -1,0 +1,36 @@
+---
+import type { Translation } from '../i18n/translations';
+
+interface Props {
+  t: Translation;
+}
+
+const { t } = Astro.props;
+---
+<div class="terminal" id="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot red"></div>
+    <div class="terminal-dot yellow"></div>
+    <div class="terminal-dot green"></div>
+    <div class="terminal-title">{t.hero.terminalTitle}</div>
+  </div>
+  <div class="terminal-body">
+    <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">whoami</span></span>
+    <span class="terminal-line terminal-output">Tahirihasina RAKOTOMANGA</span>
+    <span class="terminal-line terminal-output">{t.hero.terminalRole}</span>
+    <span class="terminal-line terminal-output">🇫🇷 Certifié ANSSI · SecNumacadémie</span>
+    <span class="terminal-line terminal-comment">{t.hero.terminalComment}</span>
+    <span class="terminal-line">&nbsp;</span>
+    <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">cat stack.txt | head -4</span></span>
+    <span class="terminal-line"><span class="terminal-section">[DevOps]</span>  Docker · K8s · CI/CD · Ansible</span>
+    <span class="terminal-line"><span class="terminal-section">[Système]</span> Linux · Proxmox · VMware · Hyper-V</span>
+    <span class="terminal-line"><span class="terminal-section">[Sécu]</span>    iptables · pfSense · Wazuh · Burp</span>
+    <span class="terminal-line"><span class="terminal-section">[Cloud]</span>   AWS · OVH · Contabo · LXC</span>
+    <span class="terminal-line">&nbsp;</span>
+    <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">contact</span><span class="cursor-blink"></span></span>
+  </div>
+  <div class="terminal-hint">
+    <span>{t.hero.terminalHintStart}</span>
+    <span><kbd>Tab</kbd> autocomplete · <kbd>↑↓</kbd> history</span>
+  </div>
+</div>

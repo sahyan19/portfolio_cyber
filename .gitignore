@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+.astro/
+.output/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local screenshots / temp uploads
+Capture d'*.png
+Capture d'*.jpg
+screenshot-*.png
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Netlify
+.netlify/
+
+# BMad outputs (gardés en source dans _bmad-output mais ignore le progress éphémère)
+_bmad-output/_progress/agent-experiences/
