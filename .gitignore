@@ -24,10 +24,12 @@ pnpm-debug.log*
 Thumbs.db
 desktop.ini
 
-# Local screenshots / temp uploads
-Capture d'*.png
-Capture d'*.jpg
-screenshot-*.png
+# Local screenshots / temp uploads at root only (preserve public/*.png assets)
+/Capture d'*.png
+/Capture d'*.jpg
+/screenshot-*.png
+/forms.png
+/*.png
 
 # IDE
 .vscode/*
