@@ -6,6 +6,29 @@ interface Props {
 }
 
 const { t } = Astro.props;
+
+// Build a JSON payload the client script will read
+const terminalData = {
+  i18n: t.terminalI18n,
+  hero: {
+    role: t.hero.terminalRole,
+    comment: t.hero.terminalComment,
+  },
+  skills: [
+    { section: 'DevOps & Cloud', items: 'Docker · Kubernetes · CI/CD · GitHub Actions · Ansible · AWS · OVH · Contabo · LXC' },
+    { section: 'Cybersécurité',   items: 'Nmap · Metasploit · BurpSuite · Hydra · iptables · pfSense · Wazuh (SIEM) · SOC' },
+    { section: 'Systèmes & Réseau', items: 'Linux · Proxmox · VMware · Hyper-V · TCP/IP · DNS · VLAN · SSH' },
+    { section: 'Développement',    items: 'Python · Django · Flask · PHP · JavaScript · PostgreSQL · MySQL · Bash' },
+  ],
+  projects: t.projects.items.map((p, i) => ({
+    id: ['wazuh-siem', 'glpi-docker', 'cyber-incidents', 'cicd-faculte', 'fmsa-vote', 'django-render'][i] || `project-${i}`,
+    title: p.title,
+    meta: p.meta,
+    status: p.status,
+    description: p.description,
+    stack: p.stack,
+  })),
+};
 ---
 <div class="terminal" id="terminal">
   <div class="terminal-header">
@@ -14,7 +37,8 @@ const { t } = Astro.props;
     <div class="terminal-dot green"></div>
     <div class="terminal-title">{t.hero.terminalTitle}</div>
   </div>
-  <div class="terminal-body">
+
+  <div class="terminal-body" id="terminal-body" data-initial>
     <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">whoami</span></span>
     <span class="terminal-line terminal-output">Tahirihasina RAKOTOMANGA</span>
     <span class="terminal-line terminal-output">{t.hero.terminalRole}</span>
@@ -27,10 +51,374 @@ const { t } = Astro.props;
     <span class="terminal-line"><span class="terminal-section">[Sécu]</span>    iptables · pfSense · Wazuh · Burp</span>
     <span class="terminal-line"><span class="terminal-section">[Cloud]</span>   AWS · OVH · Contabo · LXC</span>
     <span class="terminal-line">&nbsp;</span>
-    <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">contact</span><span class="cursor-blink"></span></span>
   </div>
+
+  <div class="terminal-input-line" id="terminal-input-line">
+    <span class="terminal-prompt">visitor@tahirihasina</span>
+    <input
+      type="text"
+      class="terminal-input"
+      id="terminal-input"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      aria-label={t.terminalI18n.inputAria}
+    />
+    <span class="cursor-blink" aria-hidden="true"></span>
+  </div>
+
   <div class="terminal-hint">
     <span>{t.hero.terminalHintStart}</span>
-    <span><kbd>Tab</kbd> autocomplete · <kbd>↑↓</kbd> history</span>
+    <span><kbd>Tab</kbd> autocomplete · <kbd>↑↓</kbd> history · <kbd>Ctrl+L</kbd> clear</span>
   </div>
 </div>
+
+<script type="application/json" id="terminal-data" set:html={JSON.stringify(terminalData)}></script>
+
+<script>
+  type SkillRow = { section: string; items: string };
+  type ProjectRow = { id: string; title: string; meta: string; status: string; description: string; stack: string[] };
+  type TerminalData = {
+    i18n: {
+      inputAria: string;
+      bootGreeting: string;
+      helpHeader: string;
+      commandNotFound: string;
+      tryHelp: string;
+      rmrf: string;
+      sudo: string;
+      nmapOutput: string;
+      matrixDone: string;
+      catNotFound: string;
+      projectNotFound: string;
+      clearHint: string;
+    };
+    hero: { role: string; comment: string };
+    skills: SkillRow[];
+    projects: ProjectRow[];
+  };
+
+  const dataEl = document.getElementById('terminal-data');
+  const body = document.getElementById('terminal-body');
+  const input = document.getElementById('terminal-input') as HTMLInputElement | null;
+  const inputLine = document.getElementById('terminal-input-line');
+  const terminalRoot = document.getElementById('terminal');
+  if (!dataEl || !body || !input || !inputLine || !terminalRoot) {
+    // Stop quietly if SSR failed somewhere
+  } else {
+    const data: TerminalData = JSON.parse(dataEl.textContent || '{}');
+    const history: string[] = [];
+    let historyIndex = -1;
+
+    const escapeHtml = (s: string) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    const appendRaw = (html: string) => {
+      const line = document.createElement('span');
+      line.className = 'terminal-line';
+      line.innerHTML = html;
+      body.appendChild(line);
+    };
+
+    const blank = () => appendRaw('&nbsp;');
+
+    const echoCommand = (cmd: string) => {
+      appendRaw(
+        `<span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">${escapeHtml(cmd)}</span>`
+      );
+    };
+
+    const out = (s: string, cls = 'terminal-output') => {
+      s.split('\n').forEach((line) => {
+        const span = document.createElement('span');
+        span.className = 'terminal-line ' + cls;
+        span.innerHTML = line || '&nbsp;';
+        body.appendChild(span);
+      });
+    };
+
+    const scrollToBottom = () => {
+      body.scrollTop = body.scrollHeight;
+      inputLine.scrollIntoView({ block: 'nearest' });
+    };
+
+    // ---- Commands -----------------------------------------------------------
+    const COMMANDS = [
+      'help', 'whoami', 'about', 'experience', 'cv', 'anssi',
+      'skills', 'cat skills.txt', 'cat stack.txt', 'cat about.txt', 'cat contact.txt',
+      'ls', 'ls projects/', 'cat projects/',
+      'contact', 'social', 'github', 'linkedin', 'email',
+      'clear', 'cls',
+      'matrix', 'nmap', 'sudo', 'theme',
+    ];
+
+    const cmdHelp = () => {
+      out(`<span class="terminal-section">${data.i18n.helpHeader}</span>`);
+      const lines = [
+        ['help',           'Affiche cette aide'],
+        ['whoami',         'Mon profil court'],
+        ['about',          'Bio complète'],
+        ['experience',     'Mon parcours pro'],
+        ['skills',         'Stack technique catégorisée'],
+        ['ls projects/',   'Liste mes projets'],
+        ['cat projects/&lt;id&gt;', 'Détail d\'un projet'],
+        ['contact',        'Canaux de contact'],
+        ['cv',             'Télécharger mon CV'],
+        ['anssi',          'Mon attestation ANSSI'],
+        ['clear',          'Vider l\'écran (Ctrl+L)'],
+        ['matrix',         '¯\\_(ツ)_/¯'],
+      ];
+      lines.forEach(([cmd, desc]) =>
+        out(`  <span class="terminal-link">${cmd}</span>  <span class="terminal-comment">${desc}</span>`)
+      );
+    };
+
+    const cmdWhoami = () => {
+      out('Tahirihasina RAKOTOMANGA');
+      out(data.hero.role);
+      out('🇫🇷 Certifié ANSSI · SecNumacadémie');
+      out(`<span class="terminal-comment">${data.hero.comment}</span>`);
+    };
+
+    const cmdAbout = () => {
+      out('Ingénieur Système & Sécurité + DevOps basé à Antananarivo, Madagascar.');
+      out('Master 2 MISA en cours · Bilingue FR/EN · Remote-friendly.');
+      out('Actuellement chez Customer Service Subcontractor (CSS) + Redsmite AI.');
+      blank();
+      out('Spécialisé en CI/CD, automatisation, déploiement infra sécurisée.');
+      out('Passionné de cybersécurité, pentest et SOC.');
+    };
+
+    const cmdExperience = () => {
+      const items = [
+        { period: 'Déc 2025 — Présent', role: 'Ingénieur Système & Sécurité', co: 'CSS Ankorondrano' },
+        { period: 'Mar 2026 — Présent', role: 'Ingénieur IA & Développeur',   co: 'Redsmite AI' },
+        { period: 'Oct 2025 — Fév 2026', role: 'Ingénieur DevOps',             co: 'Faculté des Sciences UA' },
+        { period: 'Sep 2025 — Oct 2025', role: 'Administrateur Serveur',      co: 'Vote en ligne FMSA' },
+        { period: 'Fév 2024 — Déc 2025', role: 'Administrateur Réseau',       co: 'MISA' },
+        { period: 'Oct 2024 — Nov 2024', role: 'Développeur API',             co: 'Etech' },
+      ];
+      items.forEach((i) => {
+        out(
+          `<span class="terminal-section">${escapeHtml(i.period)}</span>  ` +
+          `${escapeHtml(i.role)} <span class="terminal-comment">@ ${escapeHtml(i.co)}</span>`
+        );
+      });
+    };
+
+    const cmdSkills = () => {
+      data.skills.forEach((s) => {
+        out(`<span class="terminal-section">[${escapeHtml(s.section)}]</span>`);
+        out(`  ${escapeHtml(s.items)}`);
+      });
+    };
+
+    const cmdCat = (file: string) => {
+      const f = file.toLowerCase();
+      if (f === 'skills.txt' || f === 'stack.txt') return cmdSkills();
+      if (f === 'about.txt')   return cmdAbout();
+      if (f === 'contact.txt') return cmdContact();
+      if (f.startsWith('projects/')) {
+        const id = f.replace('projects/', '').replace(/\.md$/, '');
+        const p = data.projects.find((proj) => proj.id === id);
+        if (!p) { out(`<span class="terminal-comment">${data.i18n.projectNotFound}</span>`); return; }
+        out(`<span class="terminal-section"># ${escapeHtml(p.title)}</span>`);
+        out(`<span class="terminal-comment">${escapeHtml(p.meta)} · ${escapeHtml(p.status)}</span>`);
+        blank();
+        out(escapeHtml(p.description));
+        blank();
+        out(`<span class="terminal-section">Stack:</span> ${p.stack.map((s) => escapeHtml(s)).join(' · ')}`);
+        return;
+      }
+      out(`<span class="terminal-comment">cat: ${escapeHtml(file)}: ${data.i18n.catNotFound}</span>`);
+    };
+
+    const cmdLs = (arg: string) => {
+      const a = (arg || '').toLowerCase().replace(/\/$/, '');
+      if (!a || a === '.') {
+        out('skills.txt   stack.txt   about.txt   contact.txt   projects/   experience/');
+        return;
+      }
+      if (a === 'projects') {
+        data.projects.forEach((p) => {
+          out(`  <span class="terminal-link">${escapeHtml(p.id)}</span>  <span class="terminal-comment"># ${escapeHtml(p.title)}</span>`);
+        });
+        out(`<span class="terminal-comment">→ cat projects/&lt;id&gt; pour le détail.</span>`);
+        return;
+      }
+      out(`<span class="terminal-comment">ls: ${escapeHtml(arg)}: pas un dossier</span>`);
+    };
+
+    const cmdContact = () => {
+      out(`<span class="terminal-section">Email   :</span> <a href="mailto:tahirihasinarakotomanga@gmail.com" class="terminal-link">tahirihasinarakotomanga@gmail.com</a>`);
+      out(`<span class="terminal-section">LinkedIn:</span> <a href="https://www.linkedin.com/in/tahirihasina-rakotomanga" target="_blank" rel="noopener" class="terminal-link">linkedin.com/in/tahirihasina-rakotomanga</a>`);
+      out(`<span class="terminal-section">GitHub  :</span> <a href="https://github.com/sahyan19" target="_blank" rel="noopener" class="terminal-link">github.com/sahyan19</a>`);
+      blank();
+      out(`<span class="terminal-comment">Type "cv" to download my resume.</span>`);
+    };
+
+    const cmdCv = () => {
+      out('<span class="terminal-comment">Téléchargement de CV_Rakotomanga_Tahirihasina.pdf...</span>');
+      const a = document.createElement('a');
+      a.href = '/CV_Rakotomanga_Tahirihasina.pdf';
+      a.download = 'CV_Rakotomanga_Tahirihasina.pdf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      out('✓ Démarré.');
+    };
+
+    const cmdAnssi = () => {
+      out('<span class="terminal-section">🇫🇷 Attestation ANSSI · SecNumacadémie</span>');
+      out('  Panorama de la SSI               <span class="terminal-link">84%</span>');
+      out("  Sécurité de l'authentification   <span class=\"terminal-link\">86%</span>");
+      out('  Sécurité sur Internet            <span class="terminal-link">94%</span>');
+      out('  Sécurité du poste de travail     <span class="terminal-link">90%</span>');
+      blank();
+      out('<span class="terminal-comment">Délivrée le 30 juin 2025.</span>');
+      const a = document.createElement('a');
+      a.href = '/Tahirihasina_Rakotomanga_ANSSI.pdf';
+      a.download = 'Tahirihasina_Rakotomanga_ANSSI.pdf';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    };
+
+    const cmdClear = () => {
+      body.innerHTML = '';
+      out(`<span class="terminal-comment">${data.i18n.clearHint}</span>`);
+    };
+
+    const cmdNmap = () => {
+      out(`<span class="terminal-comment">${data.i18n.nmapOutput}</span>`);
+    };
+
+    const cmdSudo = () => {
+      out(`<span class="terminal-comment">${data.i18n.sudo}</span>`);
+    };
+
+    const cmdRmRf = () => {
+      out(`<span class="terminal-link">${data.i18n.rmrf}</span>`);
+    };
+
+    const cmdMatrix = () => {
+      const chars = 'アァカサタナハマヤャラワ0123456789ABCDEF';
+      const lines = 6;
+      for (let i = 0; i < lines; i++) {
+        let s = '';
+        const len = 38 + Math.floor(Math.random() * 8);
+        for (let j = 0; j < len; j++) s += chars[Math.floor(Math.random() * chars.length)];
+        out(`<span style="color: #3FB950">${escapeHtml(s)}</span>`);
+      }
+      blank();
+      out(`<span class="terminal-comment">${data.i18n.matrixDone}</span>`);
+    };
+
+    const cmdOpen = (target: string) => {
+      const map: Record<string, string> = {
+        github:   'https://github.com/sahyan19',
+        linkedin: 'https://www.linkedin.com/in/tahirihasina-rakotomanga',
+        email:    'mailto:tahirihasinarakotomanga@gmail.com',
+      };
+      const url = map[target.toLowerCase()];
+      if (url) {
+        out(`<span class="terminal-comment">Opening ${escapeHtml(url)}...</span>`);
+        window.open(url, target === 'email' ? '_self' : '_blank');
+      }
+    };
+
+    // ---- Dispatcher ---------------------------------------------------------
+    const run = (raw: string) => {
+      const cmd = raw.trim();
+      if (!cmd) return;
+      history.push(cmd);
+      historyIndex = history.length;
+      echoCommand(cmd);
+
+      const lower = cmd.toLowerCase();
+      const [base, ...rest] = lower.split(/\s+/);
+      const arg = rest.join(' ');
+
+      if (base === 'help' || base === '?')                       { cmdHelp(); }
+      else if (base === 'whoami')                                { cmdWhoami(); }
+      else if (base === 'about')                                 { cmdAbout(); }
+      else if (base === 'experience' || lower === 'ls experience/') { cmdExperience(); }
+      else if (base === 'skills')                                { cmdSkills(); }
+      else if (base === 'cat')                                   { cmdCat(arg); }
+      else if (base === 'ls')                                    { cmdLs(arg); }
+      else if (base === 'contact' || base === 'social')          { cmdContact(); }
+      else if (base === 'cv' || base === 'resume')               { cmdCv(); }
+      else if (base === 'anssi' || base === 'cert')              { cmdAnssi(); }
+      else if (base === 'clear' || base === 'cls')               { cmdClear(); }
+      else if (base === 'matrix')                                { cmdMatrix(); }
+      else if (lower.startsWith('nmap'))                         { cmdNmap(); }
+      else if (lower.startsWith('sudo'))                         { cmdSudo(); }
+      else if (lower.startsWith('rm '))                          { cmdRmRf(); }
+      else if (['github', 'linkedin', 'email'].includes(base))   { cmdOpen(base); }
+      else if (base === 'theme')                                 { out('<span class="terminal-comment">SOC Cyan · dark · only. (No theme switch in v1.)</span>'); }
+      else if (base === 'exit' || base === 'quit')               { out('<span class="terminal-comment">Cannot escape. This is a portfolio. 😉</span>'); }
+      else {
+        out(`<span class="terminal-link">${data.i18n.commandNotFound}: ${escapeHtml(cmd)}</span>`);
+        out(`<span class="terminal-comment">${data.i18n.tryHelp}</span>`);
+      }
+      blank();
+      scrollToBottom();
+    };
+
+    // ---- Autocomplete -------------------------------------------------------
+    const complete = (current: string): string => {
+      const prefix = current.toLowerCase();
+      // Special-case: cat projects/<prefix>
+      if (prefix.startsWith('cat projects/')) {
+        const part = prefix.replace('cat projects/', '');
+        const match = data.projects.find((p) => p.id.toLowerCase().startsWith(part));
+        if (match) return `cat projects/${match.id}`;
+      }
+      const matches = COMMANDS.filter((c) => c.toLowerCase().startsWith(prefix));
+      if (matches.length === 1) return matches[0];
+      if (matches.length > 1) {
+        out(matches.join('   '));
+        scrollToBottom();
+      }
+      return current;
+    };
+
+    // ---- Events -------------------------------------------------------------
+    input.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const v = input.value;
+        input.value = '';
+        run(v);
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const next = complete(input.value);
+        if (next !== input.value) input.value = next;
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (history.length === 0) return;
+        historyIndex = Math.max(0, historyIndex - 1);
+        input.value = history[historyIndex] ?? '';
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (history.length === 0) return;
+        historyIndex = Math.min(history.length, historyIndex + 1);
+        input.value = history[historyIndex] ?? '';
+      } else if (e.key === 'l' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        cmdClear();
+      } else if (e.key === 'Escape') {
+        input.blur();
+      }
+    });
+
+    // Focus on click anywhere in terminal
+    terminalRoot.addEventListener('click', (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Don't steal focus from real links inside the body
+      if (target.tagName === 'A') return;
+      input.focus();
+    });
+
+    // Welcome message once
+    out(`<span class="terminal-comment">${data.i18n.bootGreeting}</span>`);
+    blank();
+  }
+</script>

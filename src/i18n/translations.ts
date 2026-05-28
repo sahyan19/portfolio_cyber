@@ -31,6 +31,20 @@ export interface Translation {
     terminalComment: string;
     terminalHintStart: string;
   };
+  terminalI18n: {
+    inputAria: string;
+    bootGreeting: string;
+    helpHeader: string;
+    commandNotFound: string;
+    tryHelp: string;
+    rmrf: string;
+    sudo: string;
+    nmapOutput: string;
+    matrixDone: string;
+    catNotFound: string;
+    projectNotFound: string;
+    clearHint: string;
+  };
   about: {
     eyebrow: string;
     title: string;
@@ -166,6 +180,20 @@ export const translations: Record<Locale, Translation> = {
       terminalRole: 'Ingénieur Système & Sécurité · DevOps',
       terminalComment: '# Passionné de cybersécurité & SOC',
       terminalHintStart: 'Type help to start',
+    },
+    terminalI18n: {
+      inputAria: 'Terminal interactif — tapez une commande',
+      bootGreeting: "Bienvenue sur tahirihasina.dev — tapez <span class=\"terminal-link\">help</span> pour voir les commandes disponibles.",
+      helpHeader: 'Commandes disponibles :',
+      commandNotFound: 'Commande introuvable',
+      tryHelp: 'Tapez <span class="terminal-link">help</span> pour voir la liste.',
+      rmrf: 'Bien tenté. Je suis ingénieur Système & Sécurité. ;)',
+      sudo: 'Permission denied — contactez-moi via la section Contact pour les droits sudo.',
+      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan terminé — host disponible pour CDI et missions freelance.',
+      matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
+      catNotFound: 'Fichier introuvable. Essayez : skills.txt, stack.txt, about.txt, contact.txt',
+      projectNotFound: 'Projet introuvable. Tapez ls projects/ pour voir la liste.',
+      clearHint: 'écran nettoyé.',
     },
     about: {
       eyebrow: 'about',
@@ -422,6 +450,20 @@ export const translations: Record<Locale, Translation> = {
       terminalRole: 'Systems & Security · DevOps Engineer',
       terminalComment: '# Passionate about cybersecurity & SOC',
       terminalHintStart: 'Type help to start',
+    },
+    terminalI18n: {
+      inputAria: 'Interactive terminal — type a command',
+      bootGreeting: 'Welcome to tahirihasina.dev — type <span class="terminal-link">help</span> to see the available commands.',
+      helpHeader: 'Available commands:',
+      commandNotFound: 'Command not found',
+      tryHelp: 'Type <span class="terminal-link">help</span> to see the list.',
+      rmrf: "Nice try. I'm a Systems & Security engineer. ;)",
+      sudo: 'Permission denied — reach me via the Contact section to grant sudo rights.',
+      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan complete — host available for full-time and freelance missions.',
+      matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
+      catNotFound: 'File not found. Try: skills.txt, stack.txt, about.txt, contact.txt',
+      projectNotFound: 'Project not found. Type ls projects/ to see the list.',
+      clearHint: 'screen cleared.',
     },
     about: {
       eyebrow: 'about',
