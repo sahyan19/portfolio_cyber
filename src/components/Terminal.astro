@@ -299,16 +299,71 @@ const terminalData = {
     };
 
     const cmdMatrix = () => {
-      const chars = 'アァカサタナハマヤャラワ0123456789ABCDEF';
-      const lines = 6;
-      for (let i = 0; i < lines; i++) {
-        let s = '';
-        const len = 38 + Math.floor(Math.random() * 8);
-        for (let j = 0; j < len; j++) s += chars[Math.floor(Math.random() * chars.length)];
-        out(`<span style="color: #3FB950">${escapeHtml(s)}</span>`);
-      }
-      blank();
-      out(`<span class="terminal-comment">${data.i18n.matrixDone}</span>`);
+      const name  = 'Tahirihasina RAKOTOMANGA';
+      const role  = data.hero.role;
+      const email = 'tahirihasinarakotomanga@gmail.com';
+
+      const toBinary = (s: string) =>
+        Array.from(s).map((c) => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
+      const toHex = (s: string) =>
+        Array.from(s).map((c) => c.charCodeAt(0).toString(16).padStart(2, '0').toUpperCase()).join(' ');
+      const toBase64 = (s: string) => {
+        try { return btoa(unescape(encodeURIComponent(s))); } catch { return s; }
+      };
+
+      const randHex = (len: number) => {
+        const chars = '0123456789ABCDEF';
+        let r = '';
+        for (let i = 0; i < len; i++) r += chars[Math.floor(Math.random() * 16)];
+        return r;
+      };
+      const randBin = (len: number) => {
+        let r = '';
+        for (let i = 0; i < len; i++) r += Math.random() < 0.5 ? '0' : '1';
+        return r;
+      };
+
+      const G = (s: string) => `<span style="color: #3FB950">${s}</span>`;
+
+      const lines: string[] = [
+        G(`[INIT]  Allocating /dev/random... <span style="color:#FFC107">OK</span>`),
+        G(`[AUTH]  Handshake ${randHex(8)}-${randHex(4)}-${randHex(12)}  <span style="color:#FFC107">OK</span>`),
+        G(`[XFER]  ${randBin(48)}`),
+        G(`[XFER]  ${randBin(48)}`),
+        G(`[CRYPT] decrypting payload [${randHex(4)}]...`),
+        '&nbsp;',
+
+        '<span class="terminal-section">▶ ENCODED PAYLOAD</span>',
+        `<span class="terminal-comment">${'─'.repeat(48)}</span>`,
+        `<span class="terminal-section">BIN  :</span> ${G(escapeHtml(toBinary(name.slice(0, 6))))}...`,
+        `<span class="terminal-section">HEX  :</span> ${G(escapeHtml(toHex(role.slice(0, 18))))}...`,
+        `<span class="terminal-section">B64  :</span> ${G(escapeHtml(toBase64(email)))}`,
+        '&nbsp;',
+
+        '<span class="terminal-section">▶ DECRYPTED PROFILE</span>',
+        `<span class="terminal-comment">${'─'.repeat(48)}</span>`,
+        `<span class="terminal-section">NAME  :</span> ${escapeHtml(name)}`,
+        `<span class="terminal-section">ROLE  :</span> ${escapeHtml(role)}`,
+        `<span class="terminal-section">EMAIL :</span> <a href="mailto:${email}" class="terminal-link">${email}</a>`,
+        `<span class="terminal-section">CERT  :</span> 🇫🇷 ANSSI · SecNumacadémie (84% / 86% / 94% / 90%)`,
+        `<span class="terminal-section">LOC   :</span> Antananarivo, MG · Remote-friendly`,
+        '&nbsp;',
+
+        G('     $#*$#*$#*$#*$#*$#*$#*$#*$#*$#*$#*$#*$#*'),
+        G('     *                                         *'),
+        G('     #       THERE  IS  NO  SPOON.             #'),
+        G('     $             ¯\\_(ツ)_/¯                  $'),
+        G('     *                                         *'),
+        G('     #         tahirihasina.dev                #'),
+        G('     $#*$#*$#*$#*$#*$#*$#*$#*$#*$#*$#*$#*$#*'),
+      ];
+
+      lines.forEach((line, i) => {
+        setTimeout(() => {
+          appendRaw(line);
+          scrollToBottom();
+        }, i * 55);
+      });
     };
 
     const cmdOpen = (target: string) => {
