@@ -1,0 +1,2 @@
+# Force trailing slash on /thanks so Netlify Forms POST redirect works
+/thanks  /thanks/  301
