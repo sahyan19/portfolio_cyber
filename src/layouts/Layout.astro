@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import NeuralBackground from '../components/NeuralBackground.astro';
 import type { Locale, Translation } from '../i18n/translations';
 
 interface Props {
@@ -76,6 +77,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
   })}></script>
 </head>
 <body>
+  <NeuralBackground />
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
   <slot />
   <script>

@@ -1123,6 +1123,25 @@ section { padding: var(--space-16) 0; }
   border-radius: 4px;
 }
 
+/* NEURAL NETWORK BACKGROUND */
+.neural-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}
+@media (max-width: 767px) {
+  .neural-bg { opacity: 0.4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .neural-bg { opacity: 0.25; }
+}
+
 /* SCROLL PROGRESS BAR */
 .scroll-progress {
   position: fixed;

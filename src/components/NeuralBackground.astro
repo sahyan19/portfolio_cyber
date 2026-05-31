@@ -1,0 +1,159 @@
+---
+---
+<canvas id="neural-bg" class="neural-bg" aria-hidden="true"></canvas>
+
+<script>
+  const canvas = document.getElementById('neural-bg') as HTMLCanvasElement | null;
+  const ctx = canvas?.getContext('2d', { alpha: true }) ?? null;
+
+  if (canvas && ctx) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    interface Node { x: number; y: number; vx: number; vy: number; r: number; }
+    let nodes: Node[] = [];
+
+    const isMobile = () => window.innerWidth < 768;
+    const nodeCount = () => (isMobile() ? 30 : 65);
+    const connectDist = () => (isMobile() ? 110 : 150);
+
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const initNodes = () => {
+      const n = nodeCount();
+      nodes = [];
+      for (let i = 0; i < n; i++) {
+        nodes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.4 + 1.1,
+        });
+      }
+    };
+
+    // Scroll-reactive boost: brief acceleration on user scroll
+    let scrollBoost = 1;
+    let scrollTimer: number | null = null;
+    let lastScrollY = window.scrollY;
+    const onScroll = () => {
+      const dy = Math.abs(window.scrollY - lastScrollY);
+      lastScrollY = window.scrollY;
+      scrollBoost = Math.min(2.6, 1 + dy * 0.04);
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(() => { scrollBoost = 1; }, 220);
+    };
+
+    // Mouse repulsion (desktop only — light effect)
+    let mouseX = -9999;
+    let mouseY = -9999;
+    const onMouseMove = (e: MouseEvent) => { mouseX = e.clientX; mouseY = e.clientY; };
+    const onMouseLeave = () => { mouseX = -9999; mouseY = -9999; };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      const dist = connectDist();
+      const dist2 = dist * dist;
+      const repelRange = 130;
+      const repelRange2 = repelRange * repelRange;
+
+      // Update nodes
+      for (const node of nodes) {
+        // Mouse repulsion
+        const mdx = node.x - mouseX;
+        const mdy = node.y - mouseY;
+        const md2 = mdx * mdx + mdy * mdy;
+        if (md2 < repelRange2 && md2 > 1) {
+          const d = Math.sqrt(md2);
+          const force = (1 - d / repelRange) * 0.18;
+          node.vx += (mdx / d) * force;
+          node.vy += (mdy / d) * force;
+        }
+
+        // Brownian micro-jitter
+        node.vx += (Math.random() - 0.5) * 0.015;
+        node.vy += (Math.random() - 0.5) * 0.015;
+        // Damping
+        node.vx *= 0.97;
+        node.vy *= 0.97;
+        // Speed clamp
+        const sp = Math.hypot(node.vx, node.vy);
+        const maxSp = 0.55;
+        if (sp > maxSp) {
+          node.vx = (node.vx / sp) * maxSp;
+          node.vy = (node.vy / sp) * maxSp;
+        }
+
+        node.x += node.vx * scrollBoost;
+        node.y += node.vy * scrollBoost;
+
+        // Wrap edges
+        if (node.x < -12) node.x = width + 12;
+        else if (node.x > width + 12) node.x = -12;
+        if (node.y < -12) node.y = height + 12;
+        else if (node.y > height + 12) node.y = -12;
+      }
+
+      // Draw connections
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < dist2) {
+            const op = (1 - Math.sqrt(d2) / dist) * 0.42;
+            ctx.strokeStyle = `rgba(0, 212, 255, ${op})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw nodes with soft glow
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = 'rgba(0, 212, 255, 0.6)';
+      ctx.fillStyle = 'rgba(0, 212, 255, 0.75)';
+      for (const node of nodes) {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+
+      if (!reduced) requestAnimationFrame(draw);
+    };
+
+    resize();
+    initNodes();
+
+    window.addEventListener('resize', () => {
+      resize();
+      initNodes();
+    });
+
+    if (!reduced) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseleave', onMouseLeave);
+    }
+
+    requestAnimationFrame(draw);
+  }
+</script>
