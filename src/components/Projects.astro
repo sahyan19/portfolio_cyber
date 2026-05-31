@@ -26,9 +26,6 @@ const { t } = Astro.props;
           <div class="project-stack">
             {p.stack.map((s) => <span class="tag">{s}</span>)}
           </div>
-          <div class="project-links">
-            {p.links.map((l) => <a href={l.href} class="project-link" target="_blank" rel="noopener">{l.label}</a>)}
-          </div>
         </article>
       ))}
     </div>
