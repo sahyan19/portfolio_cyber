@@ -368,14 +368,13 @@ a:hover { color: var(--color-text); }
 }
 .terminal-body {
   padding: var(--space-4);
-  min-height: 280px;
-  max-height: 460px;
+  height: 340px;
   line-height: 1.8;
   overflow-x: hidden;
   overflow-y: auto;
   scroll-behavior: smooth;
 }
-@media (min-width: 768px) { .terminal-body { padding: var(--space-6); min-height: 320px; max-height: 520px; } }
+@media (min-width: 768px) { .terminal-body { padding: var(--space-6); height: 380px; } }
 .terminal-body .terminal-line { font-size: 12px; }
 @media (min-width: 768px) { .terminal-body .terminal-line { font-size: 13px; } }
 .terminal-body::-webkit-scrollbar { width: 8px; }
