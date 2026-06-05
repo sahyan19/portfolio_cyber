@@ -79,6 +79,10 @@ const cvHref = '/CV_Rakotomanga_Tahirihasina.pdf';
     menu.querySelectorAll('[data-close]').forEach((link) => {
       link.addEventListener('click', closeMenu);
     });
+    // Tap sur le fond de l'overlay (hors liens) → ferme le menu
+    menu.addEventListener('click', (e) => {
+      if (e.target === menu) closeMenu();
+    });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMenu();
     });
