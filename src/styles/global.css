@@ -49,7 +49,12 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+/* overflow-x sur html ET body : iOS Safari ignore la règle posée sur body seul
+   et autorise le pan horizontal si un élément déborde */
+html { scroll-behavior: smooth; overflow-x: hidden; }
+@supports (overflow-x: clip) {
+  html, body { overflow-x: clip; }
+}
 body {
   font-family: var(--font-sans);
   background: var(--color-base);
@@ -266,6 +271,9 @@ a:hover { color: var(--color-text); }
 @media (min-width: 900px) {
   .hero-grid { grid-template-columns: 1.1fr 1fr; }
 }
+/* Empêche tout enfant du grid d'imposer son min-content à la colonne
+   (défaut min-width: auto) → la largeur reste celle de l'écran */
+.hero-grid > * { min-width: 0; }
 .badge {
   display: inline-flex;
   align-items: center;
@@ -415,6 +423,10 @@ a:hover { color: var(--color-text); }
 @media (min-width: 768px) { .terminal-input-line { padding: 6px var(--space-6) var(--space-4); font-size: 13px; } }
 .terminal-input {
   flex: 1;
+  /* width: 0 + size="1" : annule la largeur intrinsèque par défaut de l'input (~20ch)
+     que Safari/WebKit compte dans le min-content du flex parent → débordement horizontal
+     sur les écrans < 370px. Chromium clampe, Safari non. */
+  width: 0;
   min-width: 0;
   background: transparent;
   border: none;
