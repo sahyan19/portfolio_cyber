@@ -228,7 +228,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Ingénieur Support Informatique ',
           company: 'NUKLEAR.io - Ankorondrano',
-          period: 'Juin 2025 — Présent',
+          period: 'Juin 2026 — Présent',
           current: true,
           highlights: [
             'Gestion des VPS et des solutions cloud',
