@@ -199,7 +199,7 @@ export const translations: Record<Locale, Translation> = {
       title: 'À propos',
       p1: "Ingénieur Systèmes, DevOps et consultant en cybersécurité, spécialisé en CI/CD, automatisation et déploiement d’infrastructures cloud, ainsi qu’en analyse de sécurité et de logiciels malveillants. Expérience dans la mise en place de pipelines avec GitHub Actions, la conteneurisation avec Docker et l’automatisation avec Ansible sur des environnements multi-cloud (AWS, OVH, VPS), combinée à des missions d’analyse de logs, d’audit de comportement système et de sécurisation de réseaux isolés.",
       p2: "Axé sur la <strong>fiabilité et la performance</strong>, avec une capacité à automatiser et à <strong style=\"color: var(--color-accent)\">sécuriser les déploiements en environnement de production</strong>. Actuellement Ingénieur Système et Sécurité chez CSS Ankorondrano, en parallèle d'un poste d'Ingénieur IA & Développeur chez Redsmite AI et de Support IT Engineer chez NUKLEAR.io.",
-      p3: "Passionné et <strong style=\"color: var(--color-accent)\"> Consultant en cybersécurité</strong> : pentest, sécurité réseau, SIEM avec Wazuh. Ouvert aux opportunités CDI et missions freelance. Bilingue FR/EN, remote-friendly.",
+      p3: "Passionné et <strong style=\"color: var(--color-accent)\"> Consultant en cybersécurité</strong> : pentest, sécurité réseau, analyse forensique et  SIEM avec Wazuh. Ouvert aux opportunités CDI et missions freelance. Bilingue FR/EN, remote-friendly.",
       metaLocation: 'Localisation',
       metaFormation: 'Formation',
       metaFormationValue: 'Master 2 MISA',
