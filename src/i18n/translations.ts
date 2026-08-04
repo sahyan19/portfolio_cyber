@@ -181,14 +181,14 @@ export const translations: Record<Locale, Translation> = {
       terminalHintStart: 'Type help to start',
     },
     terminalI18n: {
-      inputAria: 'Terminal interactif — tapez une commande',
-      bootGreeting: "Bienvenue sur tahirihasina.dev — tapez <span class=\"terminal-link\">help</span> pour voir les commandes disponibles.",
+      inputAria: 'Terminal interactif - tapez une commande',
+      bootGreeting: "Bienvenue sur tahirihasina.dev - tapez <span class=\"terminal-link\">help</span> pour voir les commandes disponibles.",
       helpHeader: 'Commandes disponibles :',
       commandNotFound: 'Commande introuvable',
       tryHelp: 'Tapez <span class="terminal-link">help</span> pour voir la liste.',
       rmrf: 'Bien tenté. Je suis ingénieur Système & Sécurité. ;)',
-      sudo: 'Permission denied — contactez-moi via la section Contact pour les droits sudo.',
-      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan terminé — host disponible pour CDI et missions freelance.',
+      sudo: 'Permission denied - contactez-moi via la section Contact pour les droits sudo.',
+      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan terminé - host disponible pour CDI et missions freelance.',
       matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
       catNotFound: 'Fichier introuvable. Essayez : skills.txt, stack.txt, about.txt, contact.txt',
       projectNotFound: 'Projet introuvable. Tapez ls projects/ pour voir la liste.',
@@ -209,7 +209,7 @@ export const translations: Record<Locale, Translation> = {
       metaAvailabilityValue: 'Open · 2026',
       certsTitle: 'certifications',
       certsIssuer: 'ANSSI · SecNumacadémie',
-      certsName: 'Attestation MOOC SecNumacadémie — 4 modules SSI',
+      certsName: 'Attestation MOOC SecNumacadémie - 4 modules SSI',
       certsDate: 'Délivrée le 30 juin 2025',
       certsModules: [
         { label: 'Panorama de la SSI', score: '84%' },
@@ -228,7 +228,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Ingénieur Support Informatique ',
           company: 'NUKLEAR.io - Ankorondrano',
-          period: 'Juin 2026 — Présent',
+          period: 'Juin 2026 - Présent',
           current: true,
           highlights: [
             'Gestion des VPS et des solutions cloud',
@@ -240,7 +240,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Ingénieur Système et Sécurité',
           company: 'Customer Service Subcontractor (CSS) - Ankorondrano',
-          period: 'Décembre 2025 — Présent',
+          period: 'Décembre 2025 - Présent',
           current: true,
           highlights: [
             'Déploiement Wazuh SIEM en production via Docker (manager + indexer + dashboard, agents, règles, alerting)',
@@ -253,7 +253,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Consultant en cybersécurité',
           company: 'Freelance, Indépendant',
-          period: 'Septembre 2025 — Présent',
+          period: 'Septembre 2025 - Présent',
           current: true,
           highlights: [
             "Analyse de logiciels malveillants et de logs systèmes ",
@@ -265,7 +265,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Ingénieur IA & Développeur',
           company: 'Redsmite AI',
-          period: 'Mars 2026 — Juillet 2026',
+          period: 'Mars 2026 - Juillet 2026',
           current: false,
           highlights: [
             "Développement d'applications automatisées basées sur des modèles d'IA",
@@ -276,8 +276,8 @@ export const translations: Record<Locale, Translation> = {
         },
         {
           role: 'Ingénieur DevOps',
-          company: "Faculté des Sciences — Université d'Antananarivo",
-          period: 'Octobre 2025 — Février 2026',
+          company: "Faculté des Sciences - Université d'Antananarivo",
+          period: 'Octobre 2025 - Février 2026',
           current: false,
           highlights: [
             "Mise en place d'un pipeline CI/CD (GitHub Actions)",
@@ -288,8 +288,8 @@ export const translations: Record<Locale, Translation> = {
         },
         {
           role: 'Administrateur Serveur',
-          company: "Projet Vote en ligne FMSA — Université d'Antananarivo",
-          period: 'Septembre 2025 — Octobre 2025',
+          company: "Projet Vote en ligne FMSA - Université d'Antananarivo",
+          period: 'Septembre 2025 - Octobre 2025',
           current: false,
           highlights: [
             "Déploiement d'application (NestJS / Next.js) sur Linux",
@@ -301,7 +301,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Administrateur Réseau',
           company: 'MISA',
-          period: 'Février 2024 — Décembre 2025',
+          period: 'Février 2024 - Décembre 2025',
           current: false,
           highlights: [
             "Administration et sécurisation de l'infrastructure réseau",
@@ -312,7 +312,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Développeur API',
           company: 'Etech',
-          period: 'Octobre 2024 — Novembre 2024',
+          period: 'Octobre 2024 - Novembre 2024',
           current: false,
           highlights: [
             'Développement API REST (Django)',
@@ -463,14 +463,14 @@ export const translations: Record<Locale, Translation> = {
       terminalHintStart: 'Type help to start',
     },
     terminalI18n: {
-      inputAria: 'Interactive terminal — type a command',
-      bootGreeting: 'Welcome to tahirihasina.dev — type <span class="terminal-link">help</span> to see the available commands.',
+      inputAria: 'Interactive terminal - type a command',
+      bootGreeting: 'Welcome to tahirihasina.dev - type <span class="terminal-link">help</span> to see the available commands.',
       helpHeader: 'Available commands:',
       commandNotFound: 'Command not found',
       tryHelp: 'Type <span class="terminal-link">help</span> to see the list.',
       rmrf: "Nice try. I'm a Systems & Security engineer. ;)",
-      sudo: 'Permission denied — reach me via the Contact section to grant sudo rights.',
-      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan complete — host available for full-time and freelance missions.',
+      sudo: 'Permission denied - reach me via the Contact section to grant sudo rights.',
+      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan complete - host available for full-time and freelance missions.',
       matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
       catNotFound: 'File not found. Try: skills.txt, stack.txt, about.txt, contact.txt',
       projectNotFound: 'Project not found. Type ls projects/ to see the list.',
@@ -491,7 +491,7 @@ export const translations: Record<Locale, Translation> = {
       metaAvailabilityValue: 'Open · 2026',
       certsTitle: 'certifications',
       certsIssuer: 'ANSSI · SecNumacadémie (French Cybersecurity Agency)',
-      certsName: 'MOOC SecNumacadémie Certificate — 4 SSI modules',
+      certsName: 'MOOC SecNumacadémie Certificate - 4 SSI modules',
       certsDate: 'Issued on June 30, 2025',
       certsModules: [
         { label: 'Overview of Information System Security', score: '84%' },
@@ -504,13 +504,13 @@ export const translations: Record<Locale, Translation> = {
     experience: {
       eyebrow: 'experience',
       title: 'Professional journey',
-      lead: 'Professional experience alongside my studies — Systems, Security, DevOps, AI.',
+      lead: 'Professional experience alongside my studies - Systems, Security, DevOps, AI.',
       badgeCurrent: '● current',
       items: [
         {
           role: 'Systems & Security Engineer',
-          company: 'Customer Service Subcontractor (CSS) — Ankorondrano',
-          period: 'December 2025 — Present',
+          company: 'Customer Service Subcontractor (CSS) - Ankorondrano',
+          period: 'December 2025 - Present',
           current: true,
           highlights: [
             'Wazuh SIEM production deployment via Docker (manager + indexer + dashboard, agents, rules, alerting)',
@@ -523,7 +523,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'AI Engineer & Developer',
           company: 'Redsmite AI',
-          period: 'March 2026 — Present',
+          period: 'March 2026 - Present',
           current: true,
           highlights: [
             'Development of automated applications based on AI models',
@@ -534,8 +534,8 @@ export const translations: Record<Locale, Translation> = {
         },
         {
           role: 'DevOps Engineer',
-          company: "Faculty of Sciences — University of Antananarivo",
-          period: 'October 2025 — February 2026',
+          company: "Faculty of Sciences - University of Antananarivo",
+          period: 'October 2025 - February 2026',
           current: false,
           highlights: [
             'Set up of a CI/CD pipeline (GitHub Actions)',
@@ -546,8 +546,8 @@ export const translations: Record<Locale, Translation> = {
         },
         {
           role: 'Server Administrator',
-          company: 'FMSA Online Voting Project — University of Antananarivo',
-          period: 'September 2025 — October 2025',
+          company: 'FMSA Online Voting Project - University of Antananarivo',
+          period: 'September 2025 - October 2025',
           current: false,
           highlights: [
             'Application deployment (NestJS / Next.js) on Linux',
@@ -559,7 +559,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Network Administrator',
           company: 'MISA',
-          period: 'February 2024 — December 2025',
+          period: 'February 2024 - December 2025',
           current: false,
           highlights: [
             'Administration and securing of network infrastructure',
@@ -570,7 +570,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'API Developer',
           company: 'Etech',
-          period: 'October 2024 — November 2024',
+          period: 'October 2024 - November 2024',
           current: false,
           highlights: [
             'REST API development (Django)',
@@ -592,7 +592,7 @@ export const translations: Record<Locale, Translation> = {
     projects: {
       eyebrow: 'projects',
       title: 'Selected projects',
-      lead: 'Real projects — public code, deployment, and documentation.',
+      lead: 'Real projects - public code, deployment, and documentation.',
       statusProduction: '● Production',
       statusPersonal: '● Personal project',
       statusLive: '● Live',
@@ -619,7 +619,7 @@ export const translations: Record<Locale, Translation> = {
         {
           meta: 'DevOps · CI/CD',
           status: '● Production',
-          title: 'CI/CD Pipeline — Faculty of Sciences',
+          title: 'CI/CD Pipeline - Faculty of Sciences',
           description: 'Complete setup of a GitHub Actions pipeline, Docker containerization, and production deployment automation on the Faculty environment.',
           stack: ['GitHub Actions', 'Docker', 'Linux'],        },
         {
