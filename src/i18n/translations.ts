@@ -240,8 +240,8 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Ingénieur IA & Développeur',
           company: 'Redsmite AI',
-          period: 'Mars 2026 — Présent',
-          current: true,
+          period: 'Mars 2026 — Juillet 2026',
+          current: false,
           highlights: [
             "Développement d'applications automatisées basées sur des modèles d'IA",
             'Intégration de workflows automatisés et déploiement de services intelligents',
@@ -333,7 +333,7 @@ export const translations: Record<Locale, Translation> = {
     projects: {
       eyebrow: 'projects',
       title: 'Projets sélectionnés',
-      lead: 'Des projets concrets — code, déploiement et documentation publics.',
+      lead: 'Des projets concrets, code, déploiement et documentation publics.',
       statusProduction: '● Production',
       statusPersonal: '● Projet personnel',
       statusLive: '● Live',
@@ -380,7 +380,7 @@ export const translations: Record<Locale, Translation> = {
     services: {
       eyebrow: 'freelance',
       title: 'Missions freelance',
-      lead: 'Déployer, automatiser ou sécuriser ton infrastructure. Cadre clair, NDA systématique, rapport livrable.',
+      lead: 'Déployer, automatiser ou sécuriser ton infrastructure. Cadre clair, rapport livrable.',
       intro: '<span style="color: var(--color-accent)">$</span> Je propose mes services en freelance pour PME et scale-up qui souhaitent <strong>déployer, automatiser ou sécuriser</strong> leur infrastructure.',
       items: [
         { icon: '[ deploy ]', title: 'Déploiement & CI/CD', description: "Mise en place pipelines GitHub Actions, conteneurisation Docker, automatisation Ansible. Déploiement applicatif sécurisé sur AWS, OVH ou VPS.", duration: "⏱ 3-10 jours · à partir d'un brief" },
