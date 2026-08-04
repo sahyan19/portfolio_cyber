@@ -238,18 +238,6 @@ export const translations: Record<Locale, Translation> = {
           tags: ['Wazuh', 'Docker', 'Ansible', 'AWS', 'OVH', 'Nginx'],
         },
         {
-          role: 'Ingénieur IA & Développeur',
-          company: 'Redsmite AI',
-          period: 'Mars 2026 — Juillet 2026',
-          current: false,
-          highlights: [
-            "Développement d'applications automatisées basées sur des modèles d'IA",
-            'Intégration de workflows automatisés et déploiement de services intelligents',
-            "Participation à l'optimisation et à l'automatisation des processus applicatifs",
-          ],
-          tags: ['Python', 'IA', 'Automatisation', 'Workflows'],
-        },
-        {
           role: 'Ingénieur Système et Sécurité',
           company: 'Customer Service Subcontractor (CSS) - Ankorondrano',
           period: 'Décembre 2025 — Présent',
@@ -272,6 +260,19 @@ export const translations: Record<Locale, Translation> = {
             'Etude du comportement d’un système lors de l’installation de logiciels tiers non officiels dans un environnement de test contrôlé ',
           ],
           tags: ['Malware Analysis', 'Windows Forensics', 'Sandboxing', 'Audit de Sécurité', 'Analyse Comportementale'],
+        },
+        
+        {
+          role: 'Ingénieur IA & Développeur',
+          company: 'Redsmite AI',
+          period: 'Mars 2026 — Juillet 2026',
+          current: false,
+          highlights: [
+            "Développement d'applications automatisées basées sur des modèles d'IA",
+            'Intégration de workflows automatisés et déploiement de services intelligents',
+            "Participation à l'optimisation et à l'automatisation des processus applicatifs",
+          ],
+          tags: ['Python', 'IA', 'Automatisation', 'Workflows'],
         },
         {
           role: 'Ingénieur DevOps',
