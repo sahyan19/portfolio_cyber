@@ -62,7 +62,6 @@ export interface Translation {
     title: string;
     p1: string;
     p2: string;
-    p3: string;
     metaLocation: string;
     metaFormation: string;
     metaFormationValue: string;
@@ -245,7 +244,6 @@ export const translations: Record<Locale, Translation> = {
       title: 'À propos',
       p1: "<strong style=\"color: var(--color-accent)\">Ingénieur Cybersécurité</strong> chez Orange Madagascar, où je supervise les alertes de sécurité (SIEM / SOC), pilote la réponse à incident et l’analyse forensique, réalise des scans de vulnérabilités avec suivi des remédiations et mène des projets de sécurisation. Mon approche combine défense opérationnelle, durcissement des systèmes exposés et veille active sur les vulnérabilités.",
       p2: "Le <strong>DevOps</strong> est mon levier pour industrialiser la sécurité : pipelines CI/CD avec GitHub Actions, conteneurisation Docker, automatisation Ansible et déploiements sécurisés sur environnements multi-cloud (AWS, OVH, VPS). Une approche qui allie <strong>fiabilité, performance</strong> et <strong style=\"color: var(--color-accent)\">sécurité en production</strong>.",
-      p3: "En parallèle, je mène des missions de <strong style=\"color: var(--color-accent)\">consulting en cybersécurité</strong> : pentest, sécurité réseau, analyse de logs et de logiciels malveillants, analyse forensique et SIEM avec Wazuh. Certifié ANSSI (SecNumacadémie), bilingue FR/EN et remote-friendly, ouvert aux opportunités CDI et aux missions freelance.",
       metaLocation: 'Localisation',
       metaFormation: 'Formation',
       metaFormationValue: 'Master 2 MISA',
@@ -314,7 +312,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Consultant en cybersécurité',
           company: 'Freelance, Indépendant',
-          period: 'Septembre 2025 - Présent',
+          period: 'Septembre 2025 - Janvier 2027',
           current: true,
           highlights: [
             "Analyse de logiciels malveillants et de logs systèmes ",
@@ -576,7 +574,6 @@ export const translations: Record<Locale, Translation> = {
       title: 'About',
       p1: '<strong style="color: var(--color-accent)">Cybersecurity Engineer</strong> at Orange Madagascar, where I monitor security alerts (SIEM / SOC), lead incident response and forensic analysis, run vulnerability scans with remediation tracking and drive security projects. My approach combines operational defense, hardening of exposed systems and active vulnerability watch.',
       p2: '<strong>DevOps</strong> is my force multiplier to industrialize security: CI/CD pipelines with GitHub Actions, Docker containerization, Ansible automation and secure deployments across multi-cloud environments (AWS, OVH, VPS). An approach that combines <strong>reliability, performance</strong> and <strong style="color: var(--color-accent)">production security</strong>.',
-      p3: 'Alongside this, I take on <strong style="color: var(--color-accent)">cybersecurity consulting</strong> missions: pentesting, network security, log and malware analysis, forensic analysis and SIEM with Wazuh. ANSSI certified (SecNumacadémie), bilingual FR/EN and remote-friendly, open to full-time opportunities and freelance missions.',
       metaLocation: 'Location',
       metaFormation: 'Education',
       metaFormationValue: 'MSc MISA',
@@ -645,7 +642,7 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Cybersecurity Consultant',
           company: 'Freelance, Independent',
-          period: 'September 2025 - Present',
+          period: 'September 2025 - January 2027',
           current: true,
           highlights: [
             'Malware and system log analysis',
