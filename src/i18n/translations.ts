@@ -177,7 +177,7 @@ export const translations: Record<Locale, Translation> = {
       cv: '↓ CV',
     },
     hero: {
-      badge: 'Open to opportunities · CDI + Freelance',
+      badge: 'Ouvert aux missions freelance',
       titleLine1Before: 'Ingénieur ',
       titleLine1Accent: 'Cybersécurité',
       titleLine2Connector: '& ',
@@ -215,7 +215,7 @@ export const translations: Record<Locale, Translation> = {
       tryHelp: 'Tapez <span class="terminal-link">help</span> pour voir la liste.',
       rmrf: 'Bien tenté. Je suis ingénieur cybersécurité. ;)',
       sudo: 'Permission denied - contactez-moi via la section Contact pour les droits sudo.',
-      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan terminé - host disponible pour CDI et missions freelance.',
+      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan terminé - host disponible pour missions freelance.',
       matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
       catNotFound: 'Fichier introuvable. Essayez : skills.txt, stack.txt, about.txt, contact.txt',
       projectNotFound: 'Projet introuvable. Tapez ls projects/ pour voir la liste.',
@@ -250,7 +250,7 @@ export const translations: Record<Locale, Translation> = {
       metaLanguages: 'Langues',
       metaLanguagesValue: 'FR · EN · MG',
       metaAvailability: 'Disponibilité',
-      metaAvailabilityValue: 'Open · CDI + Freelance',
+      metaAvailabilityValue: 'Freelance sur demande',
       certsTitle: 'certifications',
       certsIssuer: 'ANSSI · SecNumacadémie',
       certsName: 'Attestation MOOC SecNumacadémie - 4 modules SSI',
@@ -461,8 +461,8 @@ export const translations: Record<Locale, Translation> = {
     contact: {
       eyebrow: 'contact',
       title: 'Travaillons ensemble',
-      lead: "Une opportunité CDI, une mission freelance, ou juste envie d'échanger ? Tous les canaux sont ouverts.",
-      availabilityStatus: 'Disponible · CDI + Freelance',
+      lead: "Une mission freelance ou juste envie d'échanger ? Tous les canaux sont ouverts.",
+      availabilityStatus: 'Disponible · Freelance',
       availabilityMeta: 'Antananarivo, Madagascar · Remote-friendly',
       channels: {
         emailLabel: 'Email',
@@ -474,7 +474,6 @@ export const translations: Record<Locale, Translation> = {
       form: {
         typeLabel: 'Type de demande',
         typeOptions: [
-          'Opportunité CDI · Système / DevOps / Sécurité',
           'Mission freelance · Déploiement & CI/CD',
           'Mission freelance · Audit & hardening infra',
           'Mission freelance · Pentest & SIEM',
@@ -507,7 +506,7 @@ export const translations: Record<Locale, Translation> = {
       cv: '↓ Resume',
     },
     hero: {
-      badge: 'Open to opportunities · Full-time + Freelance',
+      badge: 'Open to freelance missions',
       titleLine1Before: '',
       titleLine1Accent: 'Cybersecurity',
       titleLine2Connector: '& ',
@@ -545,7 +544,7 @@ export const translations: Record<Locale, Translation> = {
       tryHelp: 'Type <span class="terminal-link">help</span> to see the list.',
       rmrf: "Nice try. I'm a cybersecurity engineer. ;)",
       sudo: 'Permission denied - reach me via the Contact section to grant sudo rights.',
-      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan complete - host available for full-time and freelance missions.',
+      nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan complete - host available for freelance missions.',
       matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
       catNotFound: 'File not found. Try: skills.txt, stack.txt, about.txt, contact.txt',
       projectNotFound: 'Project not found. Type ls projects/ to see the list.',
@@ -580,7 +579,7 @@ export const translations: Record<Locale, Translation> = {
       metaLanguages: 'Languages',
       metaLanguagesValue: 'FR · EN · MG',
       metaAvailability: 'Availability',
-      metaAvailabilityValue: 'Open · Full-time + Freelance',
+      metaAvailabilityValue: 'Freelance on request',
       certsTitle: 'certifications',
       certsIssuer: 'ANSSI · SecNumacadémie (French Cybersecurity Agency)',
       certsName: 'MOOC SecNumacadémie Certificate - 4 SSI modules',
@@ -790,8 +789,8 @@ export const translations: Record<Locale, Translation> = {
     contact: {
       eyebrow: 'contact',
       title: "Let's work together",
-      lead: 'A full-time opportunity, a freelance mission, or just want to chat? All channels are open.',
-      availabilityStatus: 'Available · Full-time + Freelance',
+      lead: 'A freelance mission, or just want to chat? All channels are open.',
+      availabilityStatus: 'Available · Freelance',
       availabilityMeta: 'Antananarivo, Madagascar · Remote-friendly',
       channels: {
         emailLabel: 'Email',
@@ -803,7 +802,6 @@ export const translations: Record<Locale, Translation> = {
       form: {
         typeLabel: 'Request type',
         typeOptions: [
-          'Full-time opportunity · Systems / DevOps / Security',
           'Freelance · Deployment & CI/CD',
           'Freelance · Audit & hardening',
           'Freelance · Pentest & SIEM',
