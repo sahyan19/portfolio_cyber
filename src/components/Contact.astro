@@ -58,30 +58,6 @@ const { t } = Astro.props;
           </div>
         </div>
       </div>
-
-      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks/">
-        <input type="hidden" name="form-name" value="contact" />
-        <p style="display:none"><label>Don't fill this out: <input name="bot-field" /></label></p>
-        <div class="form-row">
-          <label for="type">{t.contact.form.typeLabel}</label>
-          <select id="type" name="type">
-            {t.contact.form.typeOptions.map((opt) => <option>{opt}</option>)}
-          </select>
-        </div>
-        <div class="form-row">
-          <label for="name">{t.contact.form.nameLabel}</label>
-          <input type="text" id="name" name="name" required />
-        </div>
-        <div class="form-row">
-          <label for="email">{t.contact.form.emailLabel}</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="form-row">
-          <label for="message">{t.contact.form.messageLabel}</label>
-          <textarea id="message" name="message" required placeholder={t.contact.form.messagePlaceholder}></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">{t.contact.form.submit}</button>
-      </form>
     </div>
   </div>
 </section>

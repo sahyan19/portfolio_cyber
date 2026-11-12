@@ -145,15 +145,6 @@ export interface Translation {
       calendlyLabel: string;
       calendlyValue: string;
     };
-    form: {
-      typeLabel: string;
-      typeOptions: string[];
-      nameLabel: string;
-      emailLabel: string;
-      messageLabel: string;
-      messagePlaceholder: string;
-      submit: string;
-    };
   };
   footer: {
     rights: string;
@@ -471,20 +462,6 @@ export const translations: Record<Locale, Translation> = {
         calendlyLabel: 'Calendly',
         calendlyValue: 'Appel découverte · 20 min',
       },
-      form: {
-        typeLabel: 'Type de demande',
-        typeOptions: [
-          'Mission freelance · Déploiement & CI/CD',
-          'Mission freelance · Audit & hardening infra',
-          'Mission freelance · Pentest & SIEM',
-          'Autre / échange',
-        ],
-        nameLabel: 'Nom',
-        emailLabel: 'Email',
-        messageLabel: 'Message',
-        messagePlaceholder: 'Contexte, périmètre, délai souhaité...',
-        submit: 'Envoyer →',
-      },
     },
     footer: {
       rights: '© 2026 Tahirihasina Rakotomanga',
@@ -798,20 +775,6 @@ export const translations: Record<Locale, Translation> = {
         githubLabel: 'GitHub',
         calendlyLabel: 'Calendly',
         calendlyValue: 'Discovery call · 20 min',
-      },
-      form: {
-        typeLabel: 'Request type',
-        typeOptions: [
-          'Freelance · Deployment & CI/CD',
-          'Freelance · Audit & hardening',
-          'Freelance · Pentest & SIEM',
-          'Other / chat',
-        ],
-        nameLabel: 'Name',
-        emailLabel: 'Email',
-        messageLabel: 'Message',
-        messagePlaceholder: 'Context, scope, desired timeline...',
-        submit: 'Send →',
       },
     },
     footer: {
