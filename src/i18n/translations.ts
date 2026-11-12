@@ -35,6 +35,7 @@ export interface Translation {
     inputAria: string;
     bootGreeting: string;
     helpHeader: string;
+    helpLines: Array<{ cmd: string; desc: string }>;
     commandNotFound: string;
     tryHelp: string;
     rmrf: string;
@@ -44,6 +45,17 @@ export interface Translation {
     catNotFound: string;
     projectNotFound: string;
     clearHint: string;
+    certification: string;
+    aboutLines: string[];
+    cvDownloading: string;
+    cvStarted: string;
+    lsProjectsHint: string;
+    lsNotFolder: string;
+    contactCvHint: string;
+    themeNotice: string;
+    exitNotice: string;
+    stackSystem: string;
+    stackSecurity: string;
   };
   about: {
     eyebrow: string;
@@ -125,6 +137,8 @@ export interface Translation {
     eyebrow: string;
     title: string;
     lead: string;
+    availabilityStatus: string;
+    availabilityMeta: string;
     channels: {
       emailLabel: string;
       linkedinLabel: string;
@@ -151,8 +165,8 @@ export interface Translation {
 export const translations: Record<Locale, Translation> = {
   fr: {
     meta: {
-      title: 'Tahirihasina Rakotomanga · Ingénieur Système & Sécurité · DevOps',
-      description: "Ingénieur Système et Sécurité, spécialisé DevOps : CI/CD, automatisation, déploiement d'infrastructures cloud. Passionné de cybersécurité et SOC.",
+      title: 'Tahirihasina Rakotomanga · Ingénieur Cybersécurité & DevOps',
+      description: "Ingénieur Cybersécurité et DevOps : CI/CD, automatisation, sécurisation d'infrastructures cloud, scans de vulnérabilités et pilotage de projets sécurité. Passionné de cybersécurité et SOC.",
     },
     nav: {
       about: 'À propos',
@@ -166,17 +180,17 @@ export const translations: Record<Locale, Translation> = {
     hero: {
       badge: 'Open to opportunities · CDI + Freelance',
       titleLine1Before: 'Ingénieur ',
-      titleLine1Accent: 'Système & Sécurité',
+      titleLine1Accent: 'Cybersécurité',
       titleLine2Connector: '& ',
       titleLine2Mono: 'DevOps.',
-      tagline: "Spécialisé en CI/CD, automatisation et déploiement d'infrastructures cloud sécurisées. Passionné par la cybersécurité, le pentest et le SOC.",
+      tagline: "Spécialisé en CI/CD, automatisation et déploiement d'infrastructures cloud sécurisées. Scans de vulnérabilités, pilotage de projets sécurité, pentest et SOC.",
       location: '📍 Antananarivo, Madagascar',
       remote: '🌐 Remote-friendly',
       education: '🎓 Master 2 MISA',
       ctaPrimary: 'Me contacter →',
       ctaSecondary: 'Voir mes projets',
       terminalTitle: 'visitor@tahirihasina:~',
-      terminalRole: 'Ingénieur Système & Sécurité · DevOps',
+      terminalRole: 'Ingénieur Cybersécurité & DevOps',
       terminalComment: '# Passionné de cybersécurité & SOC',
       terminalHintStart: 'Type help to start',
     },
@@ -184,20 +198,52 @@ export const translations: Record<Locale, Translation> = {
       inputAria: 'Terminal interactif - tapez une commande',
       bootGreeting: "Bienvenue sur tahirihasina.dev - tapez <span class=\"terminal-link\">help</span> pour voir les commandes disponibles.",
       helpHeader: 'Commandes disponibles :',
+      helpLines: [
+        { cmd: 'help', desc: 'Affiche cette aide' },
+        { cmd: 'whoami', desc: 'Mon profil court' },
+        { cmd: 'about', desc: 'Bio complète' },
+        { cmd: 'experience', desc: 'Mon parcours pro' },
+        { cmd: 'skills', desc: 'Stack technique catégorisée' },
+        { cmd: 'ls projects/', desc: 'Liste mes projets' },
+        { cmd: 'cat projects/&lt;id&gt;', desc: "Détail d'un projet" },
+        { cmd: 'contact', desc: 'Canaux de contact' },
+        { cmd: 'cv', desc: 'Télécharger mon CV' },
+        { cmd: 'anssi', desc: 'Mon attestation ANSSI' },
+        { cmd: 'clear', desc: "Vider l'écran (Ctrl+L)" },
+        { cmd: 'matrix', desc: '¯\\_(ツ)_/¯' },
+      ],
       commandNotFound: 'Commande introuvable',
       tryHelp: 'Tapez <span class="terminal-link">help</span> pour voir la liste.',
-      rmrf: 'Bien tenté. Je suis ingénieur Système & Sécurité. ;)',
+      rmrf: 'Bien tenté. Je suis ingénieur cybersécurité. ;)',
       sudo: 'Permission denied - contactez-moi via la section Contact pour les droits sudo.',
       nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan terminé - host disponible pour CDI et missions freelance.',
       matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
       catNotFound: 'Fichier introuvable. Essayez : skills.txt, stack.txt, about.txt, contact.txt',
       projectNotFound: 'Projet introuvable. Tapez ls projects/ pour voir la liste.',
       clearHint: 'écran nettoyé.',
+      certification: '🇫🇷 Certifié ANSSI · SecNumacadémie',
+      aboutLines: [
+        'Ingénieur Cybersécurité + DevOps basé à Antananarivo, Madagascar.',
+        'Master 2 MISA en cours · Bilingue FR/EN · Remote-friendly.',
+        'Actuellement Ingénieur Cybersécurité chez Orange Madagascar.',
+        '',
+        'Spécialisé en CI/CD, automatisation, déploiement infra sécurisée.',
+        'Passionné de cybersécurité, pentest et SOC.',
+      ],
+      cvDownloading: 'Téléchargement de CV_Rakotomanga_Tahirihasina.pdf...',
+      cvStarted: '✓ Démarré.',
+      lsProjectsHint: '→ cat projects/&lt;id&gt; pour le détail.',
+      lsNotFolder: 'pas un dossier',
+      contactCvHint: 'Tapez "cv" pour télécharger mon CV.',
+      themeNotice: 'SOC Cyan · dark · only. (Pas de changement de thème en v1.)',
+      exitNotice: 'Impossible de sortir. Ceci est un portfolio. 😉',
+      stackSystem: 'Système',
+      stackSecurity: 'Sécu',
     },
     about: {
       eyebrow: 'about',
       title: 'À propos',
-      p1: "Ingénieur Systèmes, DevOps et consultant en cybersécurité, spécialisé en CI/CD, automatisation et déploiement d’infrastructures cloud, ainsi qu’en analyse de sécurité et de logiciels malveillants. Expérience dans la mise en place de pipelines avec GitHub Actions, la conteneurisation avec Docker et l’automatisation avec Ansible sur des environnements multi-cloud (AWS, OVH, VPS), combinée à des missions d’analyse de logs, d’audit de comportement système et de sécurisation de réseaux isolés.",
+      p1: "Ingénieur Cybersécurité et DevOps, spécialisé en CI/CD, automatisation et déploiement d’infrastructures cloud, ainsi qu’en analyse de sécurité et de logiciels malveillants. Expérience dans la mise en place de pipelines avec GitHub Actions, la conteneurisation avec Docker et l’automatisation avec Ansible sur des environnements multi-cloud (AWS, OVH, VPS), combinée à des missions d’analyse de logs, d’audit de comportement système et de sécurisation de réseaux isolés.",
       p2: "Axé sur la <strong>fiabilité et la performance</strong>, avec une capacité à automatiser et à <strong style=\"color: var(--color-accent)\">sécuriser les déploiements en environnement de production</strong>",
       p3: "Passionné et <strong style=\"color: var(--color-accent)\"> Consultant en cybersécurité</strong> : pentest, sécurité réseau, analyse forensique et  SIEM avec Wazuh. Ouvert aux opportunités CDI et missions freelance. Bilingue FR/EN, remote-friendly.",
       metaLocation: 'Localisation',
@@ -206,7 +252,7 @@ export const translations: Record<Locale, Translation> = {
       metaLanguages: 'Langues',
       metaLanguagesValue: 'FR · EN · MG',
       metaAvailability: 'Disponibilité',
-      metaAvailabilityValue: 'Open · 2026',
+      metaAvailabilityValue: 'Open · CDI + Freelance',
       certsTitle: 'certifications',
       certsIssuer: 'ANSSI · SecNumacadémie',
       certsName: 'Attestation MOOC SecNumacadémie - 4 modules SSI',
@@ -226,10 +272,25 @@ export const translations: Record<Locale, Translation> = {
       badgeCurrent: '● en cours',
       items: [
         {
+          role: 'Ingénieur Cybersécurité',
+          company: 'Orange Madagascar',
+          period: 'Septembre 2026 - Présent',
+          current: true,
+          highlights: [
+            'Supervision des alertes de sécurité et analyse des événements (SIEM / SOC)',
+            'Réponse à incident, investigation et analyse forensique',
+            'Réalisation de scans de vulnérabilités et suivi des remédiations',
+            'Audit de configuration et durcissement des systèmes et services exposés',
+            'Pilotage de projets sécurité : cadrage, planning et coordination',
+            'Veille sur les vulnérabilités et contribution aux politiques de sécurité',
+          ],
+          tags: ['SIEM', 'SOC', 'Wazuh', 'Incident Response', 'Forensics', 'Vulnerability Scanning', 'Project Management', 'Linux', 'Nmap'],
+        },
+        {
           role: 'Ingénieur Support Informatique ',
           company: 'NUKLEAR.io - Ankorondrano',
-          period: 'Juin 2026 - Présent',
-          current: true,
+          period: 'Juin 2026 - Septembre 2026',
+          current: false,
           highlights: [
             'Gestion des VPS et des solutions cloud',
             'Configuration et administration des services de messagerie (mails) ',
@@ -240,8 +301,8 @@ export const translations: Record<Locale, Translation> = {
         {
           role: 'Ingénieur Système et Sécurité',
           company: 'Customer Service Subcontractor (CSS) - Ankorondrano',
-          period: 'Décembre 2025 - Présent',
-          current: true,
+          period: 'Décembre 2025 - Septembre 2026',
+          current: false,
           highlights: [
             'Déploiement Wazuh SIEM en production via Docker (manager + indexer + dashboard, agents, règles, alerting)',
             'Mise en production de GLPI via Docker (Contabo, reverse proxy, persistance volumes)',
@@ -403,6 +464,8 @@ export const translations: Record<Locale, Translation> = {
       eyebrow: 'contact',
       title: 'Travaillons ensemble',
       lead: "Une opportunité CDI, une mission freelance, ou juste envie d'échanger ? Tous les canaux sont ouverts.",
+      availabilityStatus: 'Disponible · CDI + Freelance',
+      availabilityMeta: 'Antananarivo, Madagascar · Remote-friendly',
       channels: {
         emailLabel: 'Email',
         linkedinLabel: 'LinkedIn',
@@ -433,8 +496,8 @@ export const translations: Record<Locale, Translation> = {
   },
   en: {
     meta: {
-      title: 'Tahirihasina Rakotomanga · Systems & Security Engineer · DevOps',
-      description: 'Systems & Security Engineer specialized in DevOps: CI/CD, automation, cloud infrastructure deployment. Passionate about cybersecurity and SOC.',
+      title: 'Tahirihasina Rakotomanga · Cybersecurity & DevOps Engineer',
+      description: 'Cybersecurity and DevOps Engineer: CI/CD, automation, secure cloud infrastructure, vulnerability scanning and security project management. Passionate about cybersecurity and SOC.',
     },
     nav: {
       about: 'About',
@@ -448,17 +511,17 @@ export const translations: Record<Locale, Translation> = {
     hero: {
       badge: 'Open to opportunities · Full-time + Freelance',
       titleLine1Before: '',
-      titleLine1Accent: 'Systems & Security',
+      titleLine1Accent: 'Cybersecurity',
       titleLine2Connector: '& ',
       titleLine2Mono: 'DevOps Engineer.',
-      tagline: 'Specialized in CI/CD, automation, and secure cloud infrastructure deployment. Passionate about cybersecurity, pentesting, and SOC.',
+      tagline: 'Specialized in CI/CD, automation, and secure cloud infrastructure deployment. Vulnerability scanning, security project management, pentesting, and SOC.',
       location: '📍 Antananarivo, Madagascar',
       remote: '🌐 Remote-friendly',
-      education: '🎓 MSc MISA (in progress)',
+      education: '🎓 MSc MISA',
       ctaPrimary: 'Get in touch →',
       ctaSecondary: 'See my projects',
       terminalTitle: 'visitor@tahirihasina:~',
-      terminalRole: 'Systems & Security · DevOps Engineer',
+      terminalRole: 'Cybersecurity & DevOps Engineer',
       terminalComment: '# Passionate about cybersecurity & SOC',
       terminalHintStart: 'Type help to start',
     },
@@ -466,29 +529,61 @@ export const translations: Record<Locale, Translation> = {
       inputAria: 'Interactive terminal - type a command',
       bootGreeting: 'Welcome to tahirihasina.dev - type <span class="terminal-link">help</span> to see the available commands.',
       helpHeader: 'Available commands:',
+      helpLines: [
+        { cmd: 'help', desc: 'Show this help' },
+        { cmd: 'whoami', desc: 'Short profile' },
+        { cmd: 'about', desc: 'Full bio' },
+        { cmd: 'experience', desc: 'My professional journey' },
+        { cmd: 'skills', desc: 'Categorized tech stack' },
+        { cmd: 'ls projects/', desc: 'List my projects' },
+        { cmd: 'cat projects/&lt;id&gt;', desc: 'Project details' },
+        { cmd: 'contact', desc: 'Contact channels' },
+        { cmd: 'cv', desc: 'Download my resume' },
+        { cmd: 'anssi', desc: 'My ANSSI certificate' },
+        { cmd: 'clear', desc: 'Clear the screen (Ctrl+L)' },
+        { cmd: 'matrix', desc: '¯\\_(ツ)_/¯' },
+      ],
       commandNotFound: 'Command not found',
       tryHelp: 'Type <span class="terminal-link">help</span> to see the list.',
-      rmrf: "Nice try. I'm a Systems & Security engineer. ;)",
+      rmrf: "Nice try. I'm a cybersecurity engineer. ;)",
       sudo: 'Permission denied - reach me via the Contact section to grant sudo rights.',
       nmapOutput: 'Starting Nmap scan...\nHost is up (0.001s latency).\nPort 22/tcp  open  ssh\nPort 80/tcp  open  http\nPort 443/tcp open  https\nPort 8080/tcp open  contact-me\n\nScan complete - host available for full-time and freelance missions.',
       matrixDone: 'There is no spoon. ¯\\_(ツ)_/¯',
       catNotFound: 'File not found. Try: skills.txt, stack.txt, about.txt, contact.txt',
       projectNotFound: 'Project not found. Type ls projects/ to see the list.',
       clearHint: 'screen cleared.',
+      certification: '🇫🇷 ANSSI Certified · SecNumacadémie',
+      aboutLines: [
+        'Cybersecurity + DevOps engineer based in Antananarivo, Madagascar.',
+        'MSc MISA in progress · Bilingual FR/EN · Remote-friendly.',
+        'Currently Cybersecurity Engineer at Orange Madagascar.',
+        '',
+        'Specialized in CI/CD, automation, and secure infrastructure deployment.',
+        'Passionate about cybersecurity, pentesting, and SOC.',
+      ],
+      cvDownloading: 'Downloading CV_Rakotomanga_Tahirihasina.pdf...',
+      cvStarted: '✓ Started.',
+      lsProjectsHint: '→ cat projects/&lt;id&gt; for details.',
+      lsNotFolder: 'not a directory',
+      contactCvHint: 'Type "cv" to download my resume.',
+      themeNotice: 'SOC Cyan · dark · only. (No theme switch in v1.)',
+      exitNotice: 'Cannot escape. This is a portfolio. 😉',
+      stackSystem: 'System',
+      stackSecurity: 'Security',
     },
     about: {
       eyebrow: 'about',
       title: 'About',
-      p1: 'DevOps engineer specialized in CI/CD, automation, and cloud infrastructure deployment. Experienced in building pipelines with GitHub Actions, containerization with Docker, and automation with Ansible across multi-cloud environments (AWS, OVH, VPS).',
-      p2: "Focused on <strong>reliability and performance</strong>, with the ability to automate and <strong style=\"color: var(--color-accent)\">secure production deployments</strong>. Currently Systems & Security Engineer at CSS Ankorondrano, in parallel with an AI Engineer & Developer role at Redsmite AI.",
-      p3: 'Passionate about <strong style="color: var(--color-accent)">cybersecurity</strong>: pentesting (Nmap, Metasploit, BurpSuite, Hydra), network security (iptables, pfSense), and SIEM with Wazuh. Open to full-time opportunities and freelance missions. Bilingual FR/EN, remote-friendly.',
+      p1: 'Cybersecurity and DevOps engineer specialized in CI/CD, automation and secure cloud infrastructure deployment, as well as security and malware analysis. Experienced in building pipelines with GitHub Actions, containerization with Docker and automation with Ansible across multi-cloud environments (AWS, OVH, VPS), combined with log analysis, system behavior auditing and isolated network hardening.',
+      p2: "Focused on <strong>reliability and performance</strong>, with the ability to automate and <strong style=\"color: var(--color-accent)\">secure production deployments</strong>.",
+      p3: 'Passionate about <strong style="color: var(--color-accent)">cybersecurity</strong>: pentesting, network security, forensic analysis and SIEM with Wazuh. Open to full-time opportunities and freelance missions. Bilingual FR/EN, remote-friendly.',
       metaLocation: 'Location',
       metaFormation: 'Education',
-      metaFormationValue: 'MSc MISA (in progress)',
+      metaFormationValue: 'MSc MISA',
       metaLanguages: 'Languages',
       metaLanguagesValue: 'FR · EN · MG',
       metaAvailability: 'Availability',
-      metaAvailabilityValue: 'Open · 2026',
+      metaAvailabilityValue: 'Open · Full-time + Freelance',
       certsTitle: 'certifications',
       certsIssuer: 'ANSSI · SecNumacadémie (French Cybersecurity Agency)',
       certsName: 'MOOC SecNumacadémie Certificate - 4 SSI modules',
@@ -508,10 +603,37 @@ export const translations: Record<Locale, Translation> = {
       badgeCurrent: '● current',
       items: [
         {
+          role: 'Cybersecurity Engineer',
+          company: 'Orange Madagascar',
+          period: 'September 2026 - Present',
+          current: true,
+          highlights: [
+            'Security alert monitoring and event analysis (SIEM / SOC)',
+            'Incident response, investigation and forensic analysis',
+            'Vulnerability scanning and remediation tracking',
+            'Configuration audit and hardening of exposed systems and services',
+            'Security project management: scoping, planning and coordination',
+            'Vulnerability watch and contribution to security policies',
+          ],
+          tags: ['SIEM', 'SOC', 'Wazuh', 'Incident Response', 'Forensics', 'Vulnerability Scanning', 'Project Management', 'Linux', 'Nmap'],
+        },
+        {
+          role: 'IT Support Engineer',
+          company: 'NUKLEAR.io - Ankorondrano',
+          period: 'June 2026 - September 2026',
+          current: false,
+          highlights: [
+            'VPS and cloud solutions management',
+            'Configuration and administration of mail services',
+            'Technical support and system incident resolution',
+          ],
+          tags: ['Wazuh', 'Docker', 'Ansible', 'AWS', 'OVH', 'Nginx'],
+        },
+        {
           role: 'Systems & Security Engineer',
           company: 'Customer Service Subcontractor (CSS) - Ankorondrano',
-          period: 'December 2025 - Present',
-          current: true,
+          period: 'December 2025 - September 2026',
+          current: false,
           highlights: [
             'Wazuh SIEM production deployment via Docker (manager + indexer + dashboard, agents, rules, alerting)',
             'GLPI production rollout via Docker (Contabo, reverse proxy, volume persistence)',
@@ -521,10 +643,21 @@ export const translations: Record<Locale, Translation> = {
           tags: ['Wazuh', 'Docker', 'Ansible', 'AWS', 'OVH', 'Nginx'],
         },
         {
+          role: 'Cybersecurity Consultant',
+          company: 'Freelance, Independent',
+          period: 'September 2025 - Present',
+          current: true,
+          highlights: [
+            'Malware and system log analysis',
+            'Behavioral study of a system during the installation of unofficial third-party software in a controlled test environment',
+          ],
+          tags: ['Malware Analysis', 'Windows Forensics', 'Sandboxing', 'Security Audit', 'Behavioral Analysis'],
+        },
+        {
           role: 'AI Engineer & Developer',
           company: 'Redsmite AI',
-          period: 'March 2026 - Present',
-          current: true,
+          period: 'March 2026 - July 2026',
+          current: false,
           highlights: [
             'Development of automated applications based on AI models',
             'Integration of automated workflows and intelligent service deployment',
@@ -661,6 +794,8 @@ export const translations: Record<Locale, Translation> = {
       eyebrow: 'contact',
       title: "Let's work together",
       lead: 'A full-time opportunity, a freelance mission, or just want to chat? All channels are open.',
+      availabilityStatus: 'Available · Full-time + Freelance',
+      availabilityMeta: 'Antananarivo, Madagascar · Remote-friendly',
       channels: {
         emailLabel: 'Email',
         linkedinLabel: 'LinkedIn',

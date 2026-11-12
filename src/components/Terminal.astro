@@ -15,10 +15,10 @@ const terminalData = {
     comment: t.hero.terminalComment,
   },
   skills: [
-    { section: 'DevOps & Cloud', items: 'Docker · Kubernetes · CI/CD · GitHub Actions · Ansible · AWS · OVH · Contabo · LXC' },
-    { section: 'Cybersécurité',   items: 'Nmap · Metasploit · BurpSuite · Hydra · iptables · pfSense · Wazuh (SIEM) · SOC' },
-    { section: 'Systèmes & Réseau', items: 'Linux · Proxmox · VMware · Hyper-V · TCP/IP · DNS · VLAN · SSH' },
-    { section: 'Développement',    items: 'Python · Django · Flask · PHP · JavaScript · PostgreSQL · MySQL · Bash' },
+    { section: t.skills.catDevOps,  items: 'Docker · Kubernetes · CI/CD · GitHub Actions · Ansible · AWS · OVH · Contabo · LXC' },
+    { section: t.skills.catCyber,   items: 'Nmap · Metasploit · BurpSuite · Hydra · iptables · pfSense · Wazuh (SIEM) · SOC · Vulnerability Scanning · Project Management' },
+    { section: t.skills.catSystems, items: 'Linux · Proxmox · VMware · Hyper-V · TCP/IP · DNS · VLAN · SSH' },
+    { section: t.skills.catDev,     items: 'Python · Django · Flask · PHP · JavaScript · PostgreSQL · MySQL · Bash' },
   ],
   projects: t.projects.items.map((p, i) => ({
     id: ['wazuh-siem', 'glpi-docker', 'cyber-incidents', 'cicd-faculte', 'fmsa-vote', 'django-render'][i] || `project-${i}`,
@@ -28,6 +28,16 @@ const terminalData = {
     description: p.description,
     stack: p.stack,
   })),
+  experience: t.experience.items.map((e) => ({
+    period: e.period,
+    role: e.role,
+    company: e.company,
+  })),
+  anssi: {
+    name: t.about.certsName,
+    date: t.about.certsDate,
+    modules: t.about.certsModules,
+  },
 };
 ---
 <div class="terminal" id="terminal">
@@ -42,13 +52,13 @@ const terminalData = {
     <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">whoami</span></span>
     <span class="terminal-line terminal-output">Tahirihasina RAKOTOMANGA</span>
     <span class="terminal-line terminal-output">{t.hero.terminalRole}</span>
-    <span class="terminal-line terminal-output">🇫🇷 Certifié ANSSI · SecNumacadémie</span>
+    <span class="terminal-line terminal-output">{t.terminalI18n.certification}</span>
     <span class="terminal-line terminal-comment">{t.hero.terminalComment}</span>
     <span class="terminal-line">&nbsp;</span>
     <span class="terminal-line"><span class="terminal-prompt">visitor@tahirihasina</span><span class="terminal-command">cat stack.txt | head -4</span></span>
     <span class="terminal-line"><span class="terminal-section">[DevOps]</span>  Docker · K8s · CI/CD · Ansible</span>
-    <span class="terminal-line"><span class="terminal-section">[Système]</span> Linux · Proxmox · VMware · Hyper-V</span>
-    <span class="terminal-line"><span class="terminal-section">[Sécu]</span>    iptables · pfSense · Wazuh · Burp</span>
+    <span class="terminal-line"><span class="terminal-section">[{t.terminalI18n.stackSystem}]</span> Linux · Proxmox · VMware · Hyper-V</span>
+    <span class="terminal-line"><span class="terminal-section">[{t.terminalI18n.stackSecurity}]</span>    iptables · pfSense · Wazuh · Burp</span>
     <span class="terminal-line"><span class="terminal-section">[Cloud]</span>   AWS · OVH · Contabo · LXC</span>
     <span class="terminal-line">&nbsp;</span>
   </div>
@@ -85,6 +95,7 @@ const terminalData = {
       inputAria: string;
       bootGreeting: string;
       helpHeader: string;
+      helpLines: Array<{ cmd: string; desc: string }>;
       commandNotFound: string;
       tryHelp: string;
       rmrf: string;
@@ -94,10 +105,23 @@ const terminalData = {
       catNotFound: string;
       projectNotFound: string;
       clearHint: string;
+      certification: string;
+      aboutLines: string[];
+      cvDownloading: string;
+      cvStarted: string;
+      lsProjectsHint: string;
+      lsNotFolder: string;
+      contactCvHint: string;
+      themeNotice: string;
+      exitNotice: string;
+      stackSystem: string;
+      stackSecurity: string;
     };
     hero: { role: string; comment: string };
     skills: SkillRow[];
     projects: ProjectRow[];
+    experience: Array<{ period: string; role: string; company: string }>;
+    anssi: { name: string; date: string; modules: Array<{ label: string; score: string }> };
   };
 
   const dataEl = document.getElementById('terminal-data');
@@ -156,21 +180,7 @@ const terminalData = {
 
     const cmdHelp = () => {
       out(`<span class="terminal-section">${data.i18n.helpHeader}</span>`);
-      const lines = [
-        ['help',           'Affiche cette aide'],
-        ['whoami',         'Mon profil court'],
-        ['about',          'Bio complète'],
-        ['experience',     'Mon parcours pro'],
-        ['skills',         'Stack technique catégorisée'],
-        ['ls projects/',   'Liste mes projets'],
-        ['cat projects/&lt;id&gt;', 'Détail d\'un projet'],
-        ['contact',        'Canaux de contact'],
-        ['cv',             'Télécharger mon CV'],
-        ['anssi',          'Mon attestation ANSSI'],
-        ['clear',          'Vider l\'écran (Ctrl+L)'],
-        ['matrix',         '¯\\_(ツ)_/¯'],
-      ];
-      lines.forEach(([cmd, desc]) =>
+      data.i18n.helpLines.forEach(({ cmd, desc }) =>
         out(`  <span class="terminal-link">${cmd}</span>  <span class="terminal-comment">${desc}</span>`)
       );
     };
@@ -178,32 +188,22 @@ const terminalData = {
     const cmdWhoami = () => {
       out('Tahirihasina RAKOTOMANGA');
       out(data.hero.role);
-      out('🇫🇷 Certifié ANSSI · SecNumacadémie');
+      out(data.i18n.certification);
       out(`<span class="terminal-comment">${data.hero.comment}</span>`);
     };
 
     const cmdAbout = () => {
-      out('Ingénieur Système & Sécurité + DevOps basé à Antananarivo, Madagascar.');
-      out('Master 2 MISA en cours · Bilingue FR/EN · Remote-friendly.');
-      out('Actuellement chez Customer Service Subcontractor (CSS) + Redsmite AI.');
-      blank();
-      out('Spécialisé en CI/CD, automatisation, déploiement infra sécurisée.');
-      out('Passionné de cybersécurité, pentest et SOC.');
+      data.i18n.aboutLines.forEach((line) => {
+        if (line) out(escapeHtml(line));
+        else blank();
+      });
     };
 
     const cmdExperience = () => {
-      const items = [
-        { period: 'Déc 2025 — Présent', role: 'Ingénieur Système & Sécurité', co: 'CSS Ankorondrano' },
-        { period: 'Mar 2026 — Présent', role: 'Ingénieur IA & Développeur',   co: 'Redsmite AI' },
-        { period: 'Oct 2025 — Fév 2026', role: 'Ingénieur DevOps',             co: 'Faculté des Sciences UA' },
-        { period: 'Sep 2025 — Oct 2025', role: 'Administrateur Serveur',      co: 'Vote en ligne FMSA' },
-        { period: 'Fév 2024 — Déc 2025', role: 'Administrateur Réseau',       co: 'MISA' },
-        { period: 'Oct 2024 — Nov 2024', role: 'Développeur API',             co: 'Etech' },
-      ];
-      items.forEach((i) => {
+      data.experience.forEach((i) => {
         out(
           `<span class="terminal-section">${escapeHtml(i.period)}</span>  ` +
-          `${escapeHtml(i.role)} <span class="terminal-comment">@ ${escapeHtml(i.co)}</span>`
+          `${escapeHtml(i.role)} <span class="terminal-comment">@ ${escapeHtml(i.company)}</span>`
         );
       });
     };
@@ -245,10 +245,10 @@ const terminalData = {
         data.projects.forEach((p) => {
           out(`  <span class="terminal-link">${escapeHtml(p.id)}</span>  <span class="terminal-comment"># ${escapeHtml(p.title)}</span>`);
         });
-        out(`<span class="terminal-comment">→ cat projects/&lt;id&gt; pour le détail.</span>`);
+        out(`<span class="terminal-comment">${data.i18n.lsProjectsHint}</span>`);
         return;
       }
-      out(`<span class="terminal-comment">ls: ${escapeHtml(arg)}: pas un dossier</span>`);
+      out(`<span class="terminal-comment">ls: ${escapeHtml(arg)}: ${data.i18n.lsNotFolder}</span>`);
     };
 
     const cmdContact = () => {
@@ -256,26 +256,25 @@ const terminalData = {
       out(`<span class="terminal-section">LinkedIn:</span> <a href="https://www.linkedin.com/in/tahirihasina-rakotomanga" target="_blank" rel="noopener" class="terminal-link">linkedin.com/in/tahirihasina-rakotomanga</a>`);
       out(`<span class="terminal-section">GitHub  :</span> <a href="https://github.com/sahyan19" target="_blank" rel="noopener" class="terminal-link">github.com/sahyan19</a>`);
       blank();
-      out(`<span class="terminal-comment">Type "cv" to download my resume.</span>`);
+      out(`<span class="terminal-comment">${data.i18n.contactCvHint}</span>`);
     };
 
     const cmdCv = () => {
-      out('<span class="terminal-comment">Téléchargement de CV_Rakotomanga_Tahirihasina.pdf...</span>');
+      out(`<span class="terminal-comment">${data.i18n.cvDownloading}</span>`);
       const a = document.createElement('a');
       a.href = '/CV_Rakotomanga_Tahirihasina.pdf';
       a.download = 'CV_Rakotomanga_Tahirihasina.pdf';
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      out('✓ Démarré.');
+      out(data.i18n.cvStarted);
     };
 
     const cmdAnssi = () => {
-      out('<span class="terminal-section">🇫🇷 Attestation ANSSI · SecNumacadémie</span>');
-      out('  Panorama de la SSI               <span class="terminal-link">84%</span>');
-      out("  Sécurité de l'authentification   <span class=\"terminal-link\">86%</span>");
-      out('  Sécurité sur Internet            <span class="terminal-link">94%</span>');
-      out('  Sécurité du poste de travail     <span class="terminal-link">90%</span>');
+      out(`<span class="terminal-section">${escapeHtml(data.anssi.name)}</span>`);
+      data.anssi.modules.forEach((m) => {
+        out(`  ${escapeHtml(m.label)} <span class="terminal-link">${escapeHtml(m.score)}</span>`);
+      });
       blank();
-      out('<span class="terminal-comment">Délivrée le 30 juin 2025.</span>');
+      out(`<span class="terminal-comment">${escapeHtml(data.anssi.date)}.</span>`);
       const a = document.createElement('a');
       a.href = '/Tahirihasina_Rakotomanga_ANSSI.pdf';
       a.download = 'Tahirihasina_Rakotomanga_ANSSI.pdf';
@@ -408,8 +407,8 @@ const terminalData = {
       else if (lower.startsWith('sudo'))                         { cmdSudo(); }
       else if (lower.startsWith('rm '))                          { cmdRmRf(); }
       else if (['github', 'linkedin', 'email'].includes(base))   { cmdOpen(base); }
-      else if (base === 'theme')                                 { out('<span class="terminal-comment">SOC Cyan · dark · only. (No theme switch in v1.)</span>'); }
-      else if (base === 'exit' || base === 'quit')               { out('<span class="terminal-comment">Cannot escape. This is a portfolio. 😉</span>'); }
+      else if (base === 'theme')                                 { out(`<span class="terminal-comment">${data.i18n.themeNotice}</span>`); }
+      else if (base === 'exit' || base === 'quit')               { out(`<span class="terminal-comment">${data.i18n.exitNotice}</span>`); }
       else {
         out(`<span class="terminal-link">${data.i18n.commandNotFound}: ${escapeHtml(cmd)}</span>`);
         out(`<span class="terminal-comment">${data.i18n.tryHelp}</span>`);
