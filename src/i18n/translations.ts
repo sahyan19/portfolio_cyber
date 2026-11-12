@@ -165,7 +165,7 @@ export const translations: Record<Locale, Translation> = {
   fr: {
     meta: {
       title: 'Tahirihasina Rakotomanga · Ingénieur Cybersécurité & DevOps',
-      description: "Ingénieur Cybersécurité et DevOps : CI/CD, automatisation, sécurisation d'infrastructures cloud, scans de vulnérabilités et pilotage de projets sécurité. Passionné de cybersécurité et SOC.",
+      description: "Ingénieur Cybersécurité et DevOps : pentest, supervision SOC / SIEM, réponse à incident, analyse forensique, scans de vulnérabilités et pilotage de projets sécurité.",
     },
     nav: {
       about: 'À propos',
@@ -182,7 +182,7 @@ export const translations: Record<Locale, Translation> = {
       titleLine1Accent: 'Cybersécurité',
       titleLine2Connector: '& ',
       titleLine2Mono: 'DevOps.',
-      tagline: "Spécialisé en CI/CD, automatisation et déploiement d'infrastructures cloud sécurisées. Scans de vulnérabilités, pilotage de projets sécurité, pentest et SOC.",
+      tagline: "Cybersécurité offensive et défensive : pentest, supervision SOC / SIEM, réponse à incident et analyse forensique, scans de vulnérabilités, durcissement système et pilotage de projets sécurité.",
       location: '📍 Antananarivo, Madagascar',
       remote: '🌐 Remote-friendly',
       education: '🎓 Master 2 MISA',
@@ -495,7 +495,7 @@ export const translations: Record<Locale, Translation> = {
   en: {
     meta: {
       title: 'Tahirihasina Rakotomanga · Cybersecurity & DevOps Engineer',
-      description: 'Cybersecurity and DevOps Engineer: CI/CD, automation, secure cloud infrastructure, vulnerability scanning and security project management. Passionate about cybersecurity and SOC.',
+      description: 'Cybersecurity and DevOps Engineer: pentesting, SOC / SIEM monitoring, incident response, forensic analysis, vulnerability scanning and security project management.',
     },
     nav: {
       about: 'About',
@@ -512,7 +512,7 @@ export const translations: Record<Locale, Translation> = {
       titleLine1Accent: 'Cybersecurity',
       titleLine2Connector: '& ',
       titleLine2Mono: 'DevOps Engineer.',
-      tagline: 'Specialized in CI/CD, automation, and secure cloud infrastructure deployment. Vulnerability scanning, security project management, pentesting, and SOC.',
+      tagline: 'Offensive and defensive cybersecurity: pentesting, SOC / SIEM monitoring, incident response and forensic analysis, vulnerability scanning, system hardening and security project management.',
       location: '📍 Antananarivo, Madagascar',
       remote: '🌐 Remote-friendly',
       education: '🎓 MSc MISA',
